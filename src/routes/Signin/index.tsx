@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { signIn } from "../../store/actionCreators";
+import { LogInButton } from "./components/Button";
 
 type SignInState = {
   signIn: (name: string) => void;
@@ -21,21 +23,23 @@ const Signin = (props: SignInState) => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={input}
-        onChange={handleChange}
-        onKeyPress={handleSubmit}
-      ></input>
-    </div>
+    <>
+      <div>
+        <input
+          type="text"
+          value={input}
+          onChange={handleChange}
+          onKeyPress={handleSubmit}
+        ></input>
+      </div>
+      <LogInButton>SignIn</LogInButton>
+    </>
   );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    signIn: (input: string) =>
-      dispatch({ type: "SIGNIN", payload: { name: input } }),
+    signIn: (input: string) => dispatch(signIn(input)),
   };
 };
 

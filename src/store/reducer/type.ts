@@ -3,9 +3,10 @@ export interface GlobalState {
     name: string;
   }[];
 }
-export interface Signin_Type {
+
+export type Signin_Type = {
   type: "SIGNIN";
   payload: {
     name: string;
   };
-}
+};

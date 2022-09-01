@@ -1,12 +1,11 @@
-import "./App.css";
-import GlobalRoute from "./routes/index";
+import AppRoute from "./app/index";
 import { Provider } from "react-redux";
 import store from "./store/index";
 function App() {
   return (
     <>
       <Provider store={store}>
-        <GlobalRoute></GlobalRoute>
+        <AppRoute></AppRoute>
       </Provider>
     </>
   );
