@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ROOT, LOGIN, HOME } from "../utils/routeConstants";
 import { v4 as uuid } from "uuid";
 import { ReactNode } from "react";
+
+import { ROOT, LOGIN, HOME } from "../utils/routeConstants";
 import Login from "./Login/index";
 import Signup from "./Signup/index";
 import Home from "./Home/index";

@@ -1,7 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import AppRoute from "./containers/app/index";
+import { Fragment } from "react";
 import { Provider } from "react-redux";
+import ReactDOM from "react-dom/client";
+
+import AppRoute from "./containers/App/index";
 import store from "./store/index";
 
 const root = ReactDOM.createRoot(
@@ -9,9 +10,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
+  <Fragment>
     <Provider store={store}>
       <AppRoute />
     </Provider>
-  </React.StrictMode>
+  </Fragment>
 );

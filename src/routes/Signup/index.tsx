@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { signUp } from "../../store/actions";
-import { LogInButton } from "./components/Button";
-import { inputState } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
+
+import { LogInButton } from "./components/Button";
+import { signUp } from "../../store/actions";
+import { inputState } from "../../store/actions";
 import { LOGIN } from "../../utils/routeConstants";
 
 type SignupState = {
