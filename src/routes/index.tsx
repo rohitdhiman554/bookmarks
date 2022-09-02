@@ -1,10 +1,56 @@
-import Signin from "./Signin/index";
-import { useRoutes } from "react-router-dom";
-import { HOME } from "../utils/routeConstants";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { ROOT, LOGIN, HOME } from "../utils/routeConstants";
+import { v4 as uuid } from "uuid";
+import { ReactNode } from "react";
+import Login from "./Login/index";
+import Signup from "./Signup/index";
+import Home from "./Home/index";
 
-const GlobalRoute = () => {
-  const routes = useRoutes([{ path: HOME, element: <Signin /> }]);
-  return routes;
+const routesConfig = [
+  {
+    path: ROOT,
+    component: <Signup />,
+    privateRoute: false,
+  },
+
+  {
+    path: LOGIN,
+    component: <Login />,
+    privateRoute: false,
+  },
+
+  {
+    path: HOME,
+    component: <Home />,
+    privateRoute: true,
+  },
+];
+
+const ProtectedRoute = (component: ReactNode, privateRoute: boolean) => {
+  const isUserPresent = localStorage.getItem("Login");
+
+  const isValidRoute =
+    (privateRoute && isUserPresent) || !(privateRoute || isUserPresent);
+
+  if (isValidRoute) return component;
+  return <Navigate to={privateRoute ? "/login" : "/home"} />;
 };
 
-export default GlobalRoute;
+const AppRoute = () => {
+  return (
+    <Routes>
+      {routesConfig.map((route) => {
+        const obj = { ...route };
+        return (
+          <Route
+            key={uuid()}
+            path={obj.path}
+            element={ProtectedRoute(obj.component, obj.privateRoute)}
+          ></Route>
+        );
+      })}
+    </Routes>
+  );
+};
+
+export { AppRoute };

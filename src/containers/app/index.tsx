@@ -1,13 +1,11 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import GlobalRoute from "../routes";
+import { AppRoute } from "../../routes/index";
 
 const App = () => {
   return (
-    <>
-      <Router>
-        <GlobalRoute></GlobalRoute>
-      </Router>
-    </>
+    <Router>
+      <AppRoute />
+    </Router>
   );
 };
 
