@@ -3,23 +3,46 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { useNavigate } from "react-router-dom";
 
-import { LogInButton } from "./components/Button";
+import { LogInButton } from "../../components/Button";
 import { signUp } from "../../store/actions";
 import { inputState } from "../../store/actions";
 import { LOGIN } from "../../utils/routeConstants";
+import { MainDiv, HeadingDiv, RightDiv } from "./style";
+import {
+  CheckBoxDiv,
+  CustomAnchor,
+  CustomInput,
+  HideEye,
+  InputItems,
+  ShowEye,
+  Text,
+} from "../../components/Input";
+
+import Googleicon from "../../assets/googleicon.svg";
 
 type SignupState = {
   signUp: (obj: inputState) => void;
 };
 
 const Signup = (props: SignupState) => {
-  const navigate = useNavigate();
+  const [visibility, setVisibility] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const [input, setInput] = useState({
     name: "",
     id: "",
     password: "",
   });
+
+  const handleVisibilty = () => {
+    setVisibility(!visibility);
+  };
+
+  const handleCheck = () => {
+    setChecked(!checked);
+  };
+
+  const navigate = useNavigate();
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, name: e.target.value });
@@ -45,29 +68,74 @@ const Signup = (props: SignupState) => {
 
   return (
     <>
-      <form>
-        <label>
-          Name:
-          <input type="text" value={input.name} onChange={handleName}></input>
-        </label>
-        <br></br>
-        <label>
-          Id:
-          <input type="text" value={input.id} onChange={handleId}></input>
-        </label>
-        <br></br>
+      <MainDiv>
+        <HeadingDiv>
+          Welcome,
+          <br />
+          <b>Get Started</b>
+        </HeadingDiv>
 
-        <label>
-          Password:
-          <input
+        {/* <Image /> */}
+      </MainDiv>
+
+      <RightDiv>
+        <InputItems>
+          <CustomInput
             type="text"
+            value={input.name}
+            onChange={handleName}
+            placeholder="Name"
+            id="name"
+          ></CustomInput>
+          <CustomInput
+            type="text"
+            value={input.id}
+            id="id"
+            onChange={handleId}
+            placeholder="Email"
+          ></CustomInput>
+          <CustomInput
+            type={`${visibility ? "text" : "password"}`}
             value={input.password}
             onChange={handlePassword}
-          ></input>
-        </label>
-        <br></br>
-      </form>
-      <LogInButton onClick={handleSubmit}>SignIn</LogInButton>
+            id="password"
+            placeholder="Password"
+          ></CustomInput>
+          {!visibility ? (
+            <ShowEye onClick={handleVisibilty}></ShowEye>
+          ) : (
+            <HideEye onClick={handleVisibilty}></HideEye>
+          )}
+          <CheckBoxDiv>
+            <CustomInput
+              type="checkbox"
+              id="check"
+              onChange={handleCheck}
+              defaultChecked={checked}
+            ></CustomInput>
+
+            <Text id="signin">
+              By signing up, you agree to the{" "}
+              <CustomAnchor to="/" id="terms">
+                Terms of Service and Privacy Policy
+              </CustomAnchor>
+            </Text>
+          </CheckBoxDiv>
+
+          <LogInButton id="loginBtn" onClick={handleSubmit}>
+            Sign Up
+          </LogInButton>
+
+          <LogInButton id="googleBtn">Sign Up with Google</LogInButton>
+
+          <Text id="orwith">Or with</Text>
+
+          <Text id="login">
+            Already have an account?{"\u00a0\u00a0"}
+            <a href="./login">Login</a>
+          </Text>
+        </InputItems>
+      </RightDiv>
     </>
   );
 };
