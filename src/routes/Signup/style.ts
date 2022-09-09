@@ -8,6 +8,7 @@ export const MainDiv = styled.div`
   left: 0px;
   width: 30%;
   height: 100vh;
+
   background: #5352ed;
   @media (max-width: 900px) {
     display: none;

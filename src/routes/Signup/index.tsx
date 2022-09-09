@@ -18,7 +18,10 @@ import {
   Text,
 } from "../../components/Input";
 
-import Googleicon from "../../assets/googleicon.svg";
+import { StyledImage } from "../../components/Image";
+
+import GoogleIcon from "../../components/assets/googleicon.svg";
+import HeaderImage from "../../components/assets/Saly-10.svg";
 
 type SignupState = {
   signUp: (obj: inputState) => void;
@@ -74,8 +77,7 @@ const Signup = (props: SignupState) => {
           <br />
           <b>Get Started</b>
         </HeadingDiv>
-
-        {/* <Image /> */}
+        <StyledImage src={HeaderImage} />
       </MainDiv>
 
       <RightDiv>
@@ -126,7 +128,11 @@ const Signup = (props: SignupState) => {
             Sign Up
           </LogInButton>
 
-          <LogInButton id="googleBtn">Sign Up with Google</LogInButton>
+          <LogInButton id="googleBtn">
+            {" "}
+            <img src={GoogleIcon} />
+            <b>Sign Up with Google</b>
+          </LogInButton>
 
           <Text id="orwith">Or with</Text>
 

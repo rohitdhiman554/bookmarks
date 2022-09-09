@@ -20,6 +20,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
+    "redux-saga": "^1.2.1",
     "styled-components": "^5.3.5",
     "svg-react-loader": "^0.4.6",
     "typescript": "^4.8.2",
@@ -56,6 +57,7 @@
     "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^8.3.4",
-    "@types/webfontloader": "^1.6.34"
+    "@types/webfontloader": "^1.6.34",
+    "react-svg-loader": "^3.0.3"
   }
 }

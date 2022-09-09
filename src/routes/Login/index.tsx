@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { LogInButton } from "../../components/Button";
 import { HeadingDiv, MainDiv, RightDiv } from "../Signup/style";
 // import Image from "../../components/assets/Image";
@@ -10,6 +10,8 @@ import {
   ShowEye,
   Text,
 } from "../../components/Input";
+import { StyledImage } from "../../components/Image";
+import HeaderImage from "../../components/assets/Saly-10.svg";
 
 const Login = () => {
   const [visibility, setVisibility] = useState(false);
@@ -31,7 +33,7 @@ const Login = () => {
           <b>Get Started</b>
         </HeadingDiv>
 
-        {/* <Image /> */}
+        <StyledImage src={HeaderImage} width={700} />
       </MainDiv>
       <RightDiv>
         <InputItems>
