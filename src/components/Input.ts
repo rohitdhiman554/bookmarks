@@ -64,19 +64,15 @@ export const CustomInput = styled.input`
     css`
       height: 20px;
       width: 20px;
-      outline: none;
+      outline: 2px solid #5352ed;
+      outline-style: auto;
 
       &:focus {
         outline: 2px solid #5352ed;
       }
 
-      &:hover {
-        outline: 2px solid #5352ed;
-        outline-style: auto;
-      }
-
       &:checked {
-        outline: #5352ed;
+        outline: 2px solid #5352ed;
         outline-style: auto;
       }
     `}
