@@ -4,15 +4,19 @@ import styled, { css } from "styled-components";
 
 export const InputItems = styled.div`
   display: flex;
-  position: absolute;
-  width: 400px;
-  height: 600px;
-  left: 500px;
-  top: 100px;
-  @media (max-width: 900px) {
-    flex-direction: column;
+  position: relative;
+  width: 40%;
+  height: 80%;
+  left: 48%;
+  top: 10%;
+
+  @media (max-width: 700px) {
     position: absolute;
     left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
   }
 `;
 
@@ -21,60 +25,57 @@ export const CustomInput = styled.input`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 5px 5px;
   font-size: ${(props) => (props.placeholder = "15px")};
   position: absolute;
-  padding: 10px;
+  padding: 0.75em;
 
   ${(props) =>
     props.id === "name" &&
     css`
-      width: 100%;
-      height: 35px;
-      left: 0px;
-      top: 100px;
+      width: 96%;
+      height: 5%;
+      top: 16%;
       border: 1px solid #f1f1fa;
-      border-radius: 16px;
+      border-radius: 1em;
     `}
 
   ${(props) =>
     props.id === "id" &&
     css`
-      width: 100%;
-      height: 35px;
-      left: 0;
-      top: 180px;
+      width: 96%;
+      height: 5%;
+      top: 30%;
       border: 1px solid #f1f1fa;
-      border-radius: 16px;
+      border-radius: 1em;
     `}
   
   ${(props) =>
     props.id === "password" &&
     css`
-      width: 100%;
-      height: 35px;
-      left: 0px;
-      top: 260px;
+      width: 96%;
+      height: 5%;
+      top: 43.5%;
       border: 1px solid #f1f1fa;
-      border-radius: 16px;
+      border-radius: 1em;
     `}
   
     ${(props) =>
     props.id === "check" &&
     css`
-      height: 20px;
-      width: 20px;
-      outline: 2px solid #5352ed;
-      outline-style: auto;
-
-      &:focus {
-        outline: 2px solid #5352ed;
+      position: relative;
+      top: -10px;
+      width: 22px;
+     
+      
+      @media (max-width: 1045px) {
+        top: -20px;
       }
-
-      &:checked {
-        outline: 2px solid #5352ed;
-        outline-style: auto;
+      @media (max-width: 752px) {
+        top: -30px;
       }
+      @media (max-width: 700px) {
+        top: 0px;
+     
     `}
     
 
@@ -84,73 +85,117 @@ export const CustomInput = styled.input`
   }
 `;
 
-export const Text = styled.text`
-  position: absolute;
+export const Text = styled.p`
   display: flex;
   ${(props) =>
     props.id === "signin" &&
     css`
-      width: 90%;
-      left: 30px;
-
-      flex-direction: column;
+      position: relative;
+      width: 100%;
 
       font-family: Inter, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1em;
+      line-height: 1.5em;
     `}
 
   ${(props) =>
     props.id === "login" &&
     css`
+      position: absolute;
       width: 100%;
-      height: 30px;
-      top: 545px;
-      font-family: "'Inter', sans-serif;";
+
+      top: 95%;
+      font-family: Inter, sans-serif;
       align-items: center;
       justify-content: center;
-
+      font-style: normal;
+      font-size: 1.01em;
       color: #000000;
+
+      @media (max-width: 1045px) {
+        top: 96%;
+      }
+      @media (max-width: 840px) {
+        width: max-content;
+      }
+      @media (max-width: 800px) {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      @media (max-width: 753px) {
+        top: 101%;
+      }
+      @media (max-width: 700px) {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
     `}
 
     ${(props) =>
     props.id === "orwith" &&
     css`
+      position: absolute;
       width: 100%;
-      height: 30px;
-
-      top: 450px;
+      top: 78%;
       font-family: "'Inter', sans-serif;";
       align-items: center;
       justify-content: center;
       color: #91919f;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 17px;
+      @media (max-width: 1045px) {
+        top: 82%;
+      }
+      @media (max-width: 753px) {
+        top: 85%;
+      }
     `}
 
     
     ${(props) =>
     props.id === "noAcc" &&
     css`
+      position: absolute;
       width: 100%;
-      height: 30px;
 
-      top: 508px;
+      top: 90%;
       font-family: Inter, sans-serif;
       align-items: center;
       justify-content: center;
       color: #91919f;
-    `}
+      font-weight: 300;
+      font-size: 1.05em;
 
-  font-style: normal;
-  font-weight: 300;
-  font-size: 17px;
+      @media (max-width: 957px) {
+        width: 100%;
+        flex-direction: column;
+      }
+      @media (max-width: 744px) {
+        width: max-content;
+      }
+      @media (max-width: 700px) {
+        flex-direction: row;
+        width: 100%;
+      }
+      @media (max-width: 282px) {
+        flex-direction: column;
+        width: 100%;
+      }
+    `}
 `;
 
 export const CheckBoxDiv = styled.div`
-  width: 100%;
+  width: 96%;
   position: absolute;
   display: flex;
-
-  top: 330px;
-  height: 60px;
-  left: 10px;
+  top: 55%;
 `;
 
 export const CustomAnchor = styled(Link)`
@@ -161,12 +206,13 @@ export const CustomAnchor = styled(Link)`
     css`
       width: 100%;
       height: 28.08px;
-      top: 465px;
+
+      top: 73%;
       text-decoration: none;
       font-family: Inter, sans-serif;
 
       font-weight: 600;
-      font-size: 18px;
+      font-size: 1.1em;
       line-height: 28px;
       display: flex;
       align-items: center;
@@ -177,36 +223,31 @@ export const CustomAnchor = styled(Link)`
     props.id === "terms" &&
     css`
       display: contents;
-      color: red;
-      height: 28px;
-
       text-decoration: none;
     `}
 
   
- 
+
 
   color: #5352ed;
 `;
 
 export const ShowEye = styled(FaRegEye)`
-  position: absolute;
+  position: relative;
   color: #91919f;
-  height: 25px;
-
-  top: 275px;
-  left: 375px;
-  font-size: 20px;
+  height: 4%;
+  top: 46%;
+  left: 90%;
+  font-size: 1.3em;
   cursor: pointer;
 `;
 
 export const HideEye = styled(FaRegEyeSlash)`
-  position: absolute;
+  position: relative;
   color: #91919f;
-  height: 25px;
-
-  top: 275px;
-  left: 375px;
-  font-size: 20px;
+  height: 4%;
+  top: 46%;
+  left: 90%;
+  font-size: 1.3em;
   cursor: pointer;
 `;

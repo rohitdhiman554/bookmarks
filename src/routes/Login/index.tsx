@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { LogInButton } from "../../components/Button";
-import { HeadingDiv, MainDiv, RightDiv } from "../Signup/style";
+import { HeadingDiv, MainDiv, RightDiv, Header } from "../Signup/style";
 // import Image from "../../components/assets/Image";
 import {
   CustomAnchor,
@@ -36,6 +36,9 @@ const Login = () => {
         <StyledImage src={HeaderImage} width={700} />
       </MainDiv>
       <RightDiv>
+        <Header>
+          <b>Login</b>
+        </Header>
         <InputItems>
           <CustomInput
             type="text"
@@ -67,7 +70,7 @@ const Login = () => {
           </CustomAnchor>
           <Text id="noAcc">
             Don’t have an account yet?{"\u00a0"}
-            <a href="./">Sign Up</a>
+            <CustomAnchor to="/">Sign Up</CustomAnchor>
           </Text>
         </InputItems>
       </RightDiv>

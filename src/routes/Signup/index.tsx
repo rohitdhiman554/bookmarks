@@ -7,7 +7,8 @@ import { LogInButton } from "../../components/Button";
 import { signUp } from "../../store/actions";
 import { inputState } from "../../store/actions";
 import { LOGIN } from "../../utils/routeConstants";
-import { MainDiv, HeadingDiv, RightDiv } from "./style";
+import { MainDiv, HeadingDiv, RightDiv, Header } from "./style";
+
 import {
   CheckBoxDiv,
   CustomAnchor,
@@ -81,6 +82,9 @@ const Signup = (props: SignupState) => {
       </MainDiv>
 
       <RightDiv>
+        <Header>
+          <b>SignUp</b>
+        </Header>
         <InputItems>
           <CustomInput
             type="text"
@@ -124,21 +128,22 @@ const Signup = (props: SignupState) => {
             </Text>
           </CheckBoxDiv>
 
-          <LogInButton id="loginBtn" onClick={handleSubmit}>
+          <LogInButton id="signupBtn" onClick={handleSubmit}>
             Sign Up
-          </LogInButton>
-
-          <LogInButton id="googleBtn">
-            {" "}
-            <img src={GoogleIcon} />
-            <b>Sign Up with Google</b>
           </LogInButton>
 
           <Text id="orwith">Or with</Text>
 
+          <LogInButton id="googleBtn">
+            <img src={GoogleIcon} />
+            <b>Sign Up with Google</b>
+          </LogInButton>
+
           <Text id="login">
             Already have an account?{"\u00a0\u00a0"}
-            <a href="./login">Login</a>
+            <CustomAnchor id="loginAnc" to="./login">
+              Login
+            </CustomAnchor>
           </Text>
         </InputItems>
       </RightDiv>

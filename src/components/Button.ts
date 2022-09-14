@@ -5,34 +5,56 @@ export const LogInButton = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  gap: 10px;
+
   position: absolute;
+
+  ${(props) =>
+    props.id === "signupBtn" &&
+    css`
+      width: 100%;
+      height: 8%;
+      top: 70%;
+
+      background: #5352ed;
+      border: none;
+      color: white;
+      @media (max-width: 1045px) {
+        top: 75%;
+      }
+      @media (max-width: 753px) {
+        top: 78%;
+      }
+      @media (max-width: 600px) {
+      }
+    `}
 
   ${(props) =>
     props.id === "loginBtn" &&
     css`
       width: 100%;
-      height: 50px;
-      left: 0;
-      top: 390.54px;
+      height: 8%;
+      top: 58%;
+
       background: #5352ed;
       border: none;
       color: white;
     `}
-
   ${(props) =>
     props.id === "googleBtn" &&
     css`
-      box-sizing: border-box;
       width: 100%;
-      height: 50px;
-      left: 0;
-      top: 485px;
+      height: 8%;
+      top: 86%;
       border: 2px solid #f1f1fa;
-
       background: white;
+      @media (max-width: 1045px) {
+        top: 90%;
+      }
+      @media (max-width: 753px) {
+        top: 94%;
+      }
     `}
+
   border-radius: 16px;
-  font-size: 20px;
+  font-size: 1em;
 `;

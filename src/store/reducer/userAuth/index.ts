@@ -25,6 +25,11 @@ const userAuth = (state = initialState, action: Actions) => {
           },
         ],
       };
+
+    // case SET_PRODUCTLIST: {
+    //   console.log("helllo");
+    //   return [action];
+    // }
     default:
       return state;
   }
