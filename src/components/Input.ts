@@ -9,11 +9,15 @@ export const InputItems = styled.div`
   height: 80%;
   left: 48%;
   top: 10%;
+  @media (max-width: 752px) {
+    top: 8%;
+  }
 
   @media (max-width: 700px) {
     position: absolute;
     left: 0;
     right: 0;
+    top: 6%;
     margin-left: auto;
     margin-right: auto;
     width: 95%;
@@ -65,16 +69,16 @@ export const CustomInput = styled.input`
       position: relative;
       top: -10px;
       width: 22px;
+      
      
       
       @media (max-width: 1045px) {
-        top: -20px;
+        top: 10%;
       }
-      @media (max-width: 752px) {
-        top: -30px;
-      }
+      
       @media (max-width: 700px) {
         top: 0px;
+
      
     `}
     
@@ -92,6 +96,7 @@ export const Text = styled.p`
     css`
       position: relative;
       width: 100%;
+      left: 1%;
 
       font-family: Inter, sans-serif;
       font-style: normal;
@@ -106,7 +111,7 @@ export const Text = styled.p`
       position: absolute;
       width: 100%;
 
-      top: 95%;
+      top: 97%;
       font-family: Inter, sans-serif;
       align-items: center;
       justify-content: center;
@@ -115,21 +120,26 @@ export const Text = styled.p`
       color: #000000;
 
       @media (max-width: 1045px) {
-        top: 96%;
+        top: 99%;
       }
       @media (max-width: 840px) {
+        top: 100%;
         width: max-content;
       }
       @media (max-width: 800px) {
+        margin-top: 2%;
+
         width: 100%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
       }
-      @media (max-width: 753px) {
-        top: 101%;
+      @media (max-width: 752px) {
+        margin-top: 2px;
       }
       @media (max-width: 700px) {
+        margin-top: 30px;
+        top: 98%;
         width: 100%;
         flex-direction: row;
         justify-content: center;
@@ -142,7 +152,7 @@ export const Text = styled.p`
     css`
       position: absolute;
       width: 100%;
-      top: 78%;
+      top: 80%;
       font-family: "'Inter', sans-serif;";
       align-items: center;
       justify-content: center;
@@ -151,9 +161,12 @@ export const Text = styled.p`
       font-weight: 300;
       font-size: 17px;
       @media (max-width: 1045px) {
-        top: 82%;
+        top: 84%;
       }
-      @media (max-width: 753px) {
+      @media (max-width: 752px) {
+        top: 84%;
+      }
+      @media (max-width: 700px) {
         top: 85%;
       }
     `}
@@ -192,9 +205,10 @@ export const Text = styled.p`
 `;
 
 export const CheckBoxDiv = styled.div`
-  width: 96%;
+  width: 98%;
   position: absolute;
   display: flex;
+
   top: 55%;
 `;
 

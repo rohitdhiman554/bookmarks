@@ -33,7 +33,7 @@ const Login = () => {
           <b>Get Started</b>
         </HeadingDiv>
 
-        <StyledImage src={HeaderImage} width={700} />
+        <StyledImage id="saly-10" src={HeaderImage} width={700} />
       </MainDiv>
       <RightDiv>
         <Header>

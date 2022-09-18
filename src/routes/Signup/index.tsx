@@ -4,8 +4,8 @@ import { Dispatch } from "redux";
 import { useNavigate } from "react-router-dom";
 
 import { LogInButton } from "../../components/Button";
-import { signUp } from "../../store/actions";
-import { inputState } from "../../store/actions";
+import { signUp } from "../../store/actions/signUpAction";
+import { inputState } from "../../store/actions/signUpAction";
 import { LOGIN } from "../../utils/routeConstants";
 import { MainDiv, HeadingDiv, RightDiv, Header } from "./style";
 
@@ -78,7 +78,7 @@ const Signup = (props: SignupState) => {
           <br />
           <b>Get Started</b>
         </HeadingDiv>
-        <StyledImage src={HeaderImage} />
+        <StyledImage id="saly-10" src={HeaderImage} />
       </MainDiv>
 
       <RightDiv>

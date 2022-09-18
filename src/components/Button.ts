@@ -21,10 +21,13 @@ export const LogInButton = styled.button`
       @media (max-width: 1045px) {
         top: 75%;
       }
-      @media (max-width: 753px) {
-        top: 78%;
+
+      @media (max-width: 752px) {
+        top: 74%;
       }
-      @media (max-width: 600px) {
+
+      @media (max-width: 700px) {
+        top: 75%;
       }
     `}
 
@@ -50,8 +53,11 @@ export const LogInButton = styled.button`
       @media (max-width: 1045px) {
         top: 90%;
       }
-      @media (max-width: 753px) {
-        top: 94%;
+      @media (max-width: 752px) {
+        top: 90%;
+      }
+      @media (max-width: 700px) {
+        top: 92%;
       }
     `}
 

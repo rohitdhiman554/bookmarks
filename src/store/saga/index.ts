@@ -1,21 +1,20 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { PRODUCT_LIST, SET_PRODUCTLIST } from "../actionsTypes";
+import { userRequestFailure, userRequestSuccess } from "../actions/userAction";
+import { USER_FETCH_REQUEST } from "../actionsTypes";
 
-function* getProducts(): any {
-  let data = yield fetch("https://api.github.com/users");
-  data = yield data.json();
-  yield put({
-    type: SET_PRODUCTLIST,
-    payload: {
-      data: data.map((el: any) => {
-        return el.login;
-      }),
-    },
-  });
+function* fetchUser(): any {
+  try {
+    let data = yield fetch("https://api.github.com/users");
+    data = yield data.json();
+
+    yield put(userRequestSuccess(data));
+  } catch (error) {
+    yield put(userRequestFailure());
+  }
 }
 
-function* productSaga() {
-  yield takeEvery(PRODUCT_LIST, getProducts);
+function* UserSaga() {
+  yield takeEvery(USER_FETCH_REQUEST, fetchUser);
 }
 
-export default productSaga;
+export default UserSaga;
