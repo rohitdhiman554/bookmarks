@@ -24,9 +24,11 @@ interface RequestSuccess {
 
 interface RequestFailure {
   type: "USER_REQUEST_FAILURE";
+  payload: any;
 }
 
 interface FetchRequest {
   type: "USER_FETCH_REQUEST";
 }
+
 export type Actions = RequestSuccess | RequestFailure | FetchRequest;

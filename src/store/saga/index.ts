@@ -9,7 +9,7 @@ function* fetchUser(): any {
 
     yield put(userRequestSuccess(data));
   } catch (error) {
-    yield put(userRequestFailure());
+    yield put(userRequestFailure(error));
   }
 }
 

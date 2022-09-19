@@ -38,8 +38,9 @@ export const userRequestSuccess = (payload: UserType) => {
   };
 };
 
-export const userRequestFailure = () => {
+export const userRequestFailure = (error: any) => {
   return {
     type: USER_REQUEST_FAILURE,
+    payload: error,
   };
 };

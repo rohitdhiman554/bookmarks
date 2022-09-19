@@ -67,7 +67,6 @@ const Signup = (props: SignupState) => {
       id: "",
       password: "",
     });
-    navigate(LOGIN);
   };
 
   return (
