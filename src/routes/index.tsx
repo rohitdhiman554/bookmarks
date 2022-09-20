@@ -35,7 +35,7 @@ const routesConfig = [
 ];
 
 const ProtectedRoute = (component: ReactNode, privateRoute: boolean) => {
-  const isUserPresent = localStorage.getItem("Login");
+  const isUserPresent = localStorage.getItem("auth");
 
   const isValidRoute =
     (privateRoute && isUserPresent) || !(privateRoute || isUserPresent);

@@ -9,6 +9,7 @@ export const InputItems = styled.div`
   height: 80%;
   left: 48%;
   top: 10%;
+  border: 2px solid black;
 
   @media (max-width: 700px) {
     position: absolute;
@@ -40,11 +41,11 @@ export const CustomInput = styled.input`
     `}
 
   ${(props) =>
-    props.id === "id" &&
+    props.id === "email" &&
     css`
       width: 96%;
       height: 5%;
-      top: 30%;
+      top: 31%;
       border: 1px solid #f1f1fa;
       border-radius: 1em;
     `}
@@ -54,7 +55,7 @@ export const CustomInput = styled.input`
     css`
       width: 96%;
       height: 5%;
-      top: 43.5%;
+      top: 46%;
       border: 1px solid #f1f1fa;
       border-radius: 1em;
     `}
@@ -142,7 +143,7 @@ export const Text = styled.p`
     css`
       position: absolute;
       width: 100%;
-      top: 78%;
+      top: 79%;
       font-family: "'Inter', sans-serif;";
       align-items: center;
       justify-content: center;
@@ -195,28 +196,17 @@ export const CheckBoxDiv = styled.div`
   width: 96%;
   position: absolute;
   display: flex;
-  top: 55%;
+  top: 58%;
 `;
 
-export const CustomAnchor = styled(Link)`
-  position: relative;
-
+export const CustomAnchor = styled.a`
   ${(props) =>
     props.id === "forgot" &&
     css`
+      display: block;
       width: 100%;
-      height: 28.08px;
-
-      top: 73%;
-      text-decoration: none;
-      font-family: Inter, sans-serif;
-
-      font-weight: 600;
-      font-size: 1.1em;
-      line-height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 20px;
+      border: 2px solid red;
     `}
 
   ${(props) =>
@@ -235,9 +225,12 @@ export const CustomAnchor = styled(Link)`
 export const ShowEye = styled(FaRegEye)`
   position: relative;
   color: #91919f;
-  height: 4%;
+  width: 100%;
+  display: block;
+
   top: 46%;
-  left: 90%;
+  left: 100%;
+
   font-size: 1.3em;
   cursor: pointer;
 `;

@@ -1,3 +1,3 @@
-import { signUp } from "../../actions/index";
+import { userSignUp } from "../../actions/index";
 
-export type Actions = ReturnType<typeof signUp>;
+export type Actions = ReturnType<typeof userSignUp>;

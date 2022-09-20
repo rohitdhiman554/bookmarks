@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
 
-import { LogInButton } from "../../components/Button";
-import { signUp } from "../../store/actions";
+import { CustomButton } from "../../components/Button";
 import { inputState } from "../../store/actions";
-import { LOGIN } from "../../utils/routeConstants";
 import { MainDiv, HeadingDiv, RightDiv, Header } from "./style";
-
 import {
   CheckBoxDiv,
   CustomAnchor,
@@ -20,23 +17,38 @@ import {
 } from "../../components/Input";
 
 import { StyledImage } from "../../components/Image";
-
 import GoogleIcon from "../../components/assets/googleicon.svg";
 import HeaderImage from "../../components/assets/Saly-10.svg";
+import { userSignUp } from "../../store/actions/index";
+import {
+  NameValidation,
+  PasswordValidation,
+} from "../../components/Validation";
+import { signUpSchema } from "../../validation/index";
 
 type SignupState = {
-  signUp: (obj: inputState) => void;
+  getRegistrationDetails: (obj: inputState) => void;
+};
+
+const initialValues = {
+  name: "",
+  email: "",
+  password: "",
 };
 
 const Signup = (props: SignupState) => {
   const [visibility, setVisibility] = useState(false);
   const [checked, setChecked] = useState(false);
 
-  const [input, setInput] = useState({
-    name: "",
-    id: "",
-    password: "",
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: signUpSchema,
+      onSubmit: (values, actions) => {
+        props.getRegistrationDetails(values);
+        actions.resetForm();
+      },
+    });
 
   const handleVisibilty = () => {
     setVisibility(!visibility);
@@ -44,30 +56,6 @@ const Signup = (props: SignupState) => {
 
   const handleCheck = () => {
     setChecked(!checked);
-  };
-
-  const navigate = useNavigate();
-
-  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, name: e.target.value });
-  };
-
-  const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, id: e.target.value });
-  };
-
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, password: e.target.value });
-  };
-
-  const handleSubmit = () => {
-    props.signUp(input);
-    setInput({
-      name: "",
-      id: "",
-      password: "",
-    });
-    navigate(LOGIN);
   };
 
   return (
@@ -85,66 +73,87 @@ const Signup = (props: SignupState) => {
         <Header>
           <b>SignUp</b>
         </Header>
+
         <InputItems>
-          <CustomInput
-            type="text"
-            value={input.name}
-            onChange={handleName}
-            placeholder="Name"
-            id="name"
-          ></CustomInput>
-          <CustomInput
-            type="text"
-            value={input.id}
-            id="id"
-            onChange={handleId}
-            placeholder="Email"
-          ></CustomInput>
-          <CustomInput
-            type={`${visibility ? "text" : "password"}`}
-            value={input.password}
-            onChange={handlePassword}
-            id="password"
-            placeholder="Password"
-          ></CustomInput>
-          {!visibility ? (
-            <ShowEye onClick={handleVisibilty}></ShowEye>
-          ) : (
-            <HideEye onClick={handleVisibilty}></HideEye>
-          )}
-          <CheckBoxDiv>
+          <form onSubmit={handleSubmit}>
             <CustomInput
-              type="checkbox"
-              id="check"
-              onChange={handleCheck}
-              defaultChecked={checked}
+              type="text"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Name"
+              name="name"
+              id="name"
+            ></CustomInput>
+            {errors.name && touched.name ? (
+              <NameValidation id="name">{errors.name}</NameValidation>
+            ) : null}
+
+            <CustomInput
+              type="email"
+              value={values.email}
+              id="email"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Email"
+            ></CustomInput>
+            {errors.email && touched.email ? (
+              <PasswordValidation id="password">
+                {errors.password}
+              </PasswordValidation>
+            ) : null}
+
+            <CustomInput
+              type={`${visibility ? "text" : "password"}`}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              id="password"
+              name="password"
+              placeholder="Password"
             ></CustomInput>
 
-            <Text id="signin">
-              By signing up, you agree to the{" "}
-              <CustomAnchor to="/" id="terms">
-                Terms of Service and Privacy Policy
+            {errors.password && touched.password ? (
+              <PasswordValidation id="password">
+                {errors.password}
+              </PasswordValidation>
+            ) : null}
+            {/* {!visibility ? (
+              <ShowEye onClick={handleVisibilty}></ShowEye>
+            ) : (
+              <HideEye onClick={handleVisibilty}></HideEye>
+            )} */}
+            <CheckBoxDiv>
+              <CustomInput
+                type="checkbox"
+                id="check"
+                onChange={handleCheck}
+                defaultChecked={checked}
+              ></CustomInput>
+
+              <Text id="signin">
+                By signing up, you agree to the{" "}
+                <CustomAnchor href="/" id="terms">
+                  Terms of Service and Privacy Policy
+                </CustomAnchor>
+              </Text>
+            </CheckBoxDiv>
+            <CustomButton id="signupBtn" type="submit">
+              Sign Up
+            </CustomButton>
+            <Text id="orwith">Or with</Text>
+            <CustomButton type="submit" id="googleBtn">
+              <img src={GoogleIcon} />
+              <b>Sign Up with Google</b>
+            </CustomButton>
+            <Text id="login">
+              Already have an account?{"\u00a0\u00a0"}
+              <CustomAnchor id="loginAnc" href="./login">
+                Login
               </CustomAnchor>
             </Text>
-          </CheckBoxDiv>
-
-          <LogInButton id="signupBtn" onClick={handleSubmit}>
-            Sign Up
-          </LogInButton>
-
-          <Text id="orwith">Or with</Text>
-
-          <LogInButton id="googleBtn">
-            <img src={GoogleIcon} />
-            <b>Sign Up with Google</b>
-          </LogInButton>
-
-          <Text id="login">
-            Already have an account?{"\u00a0\u00a0"}
-            <CustomAnchor id="loginAnc" to="./login">
-              Login
-            </CustomAnchor>
-          </Text>
+          </form>
         </InputItems>
       </RightDiv>
     </>
@@ -153,7 +162,8 @@ const Signup = (props: SignupState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    signUp: (input: inputState) => dispatch(signUp(input)),
+    getRegistrationDetails: (values: inputState) =>
+      dispatch(userSignUp(values)),
   };
 };
 

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const LogInButton = styled.button`
+export const CustomButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -13,7 +13,7 @@ export const LogInButton = styled.button`
     css`
       width: 100%;
       height: 8%;
-      top: 70%;
+      top: 72%;
 
       background: #5352ed;
       border: none;
@@ -44,7 +44,7 @@ export const LogInButton = styled.button`
     css`
       width: 100%;
       height: 8%;
-      top: 86%;
+      top: 88%;
       border: 2px solid #f1f1fa;
       background: white;
       @media (max-width: 1045px) {

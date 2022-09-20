@@ -1,5 +1,11 @@
 import { Actions } from "../userAuth/type";
-import { SIGNUP } from "../../actionsTypes/index";
+import {
+  CREATE_FOLDER_REQUEST,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  REGISTRATION_SUCCESS,
+  SIGNUP,
+} from "../../actionsTypes/index";
 
 interface UserState {
   users: {
@@ -20,16 +26,25 @@ const userAuth = (state = initialState, action: Actions) => {
           ...state.users,
           {
             name: action.payload.name,
-            id: action.payload.id,
+            email: action.payload.email,
             password: action.payload.password,
           },
         ],
       };
 
-    // case SET_PRODUCTLIST: {
-    //   console.log("helllo");
-    //   return [action];
-    // }
+    case REGISTRATION_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case LOGIN_SUCCESS:
+      return { ...state };
+
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }
