@@ -10,8 +10,8 @@ export function* createFolder(action: any): any {
       name: data,
     });
 
-    yield put({ type: CREATE_FOLDER_SUCCESS, response });
+    yield put({ type: CREATE_FOLDER_SUCCESS, payload: { folder: response } });
   } catch (error) {
-    yield put({ type: CREATE_FOLDER_FAILURE, error });
+    yield put({ type: CREATE_FOLDER_FAILURE, payload: { error: error } });
   }
 }

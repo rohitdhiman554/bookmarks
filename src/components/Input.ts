@@ -9,7 +9,6 @@ export const InputItems = styled.div`
   height: 80%;
   left: 48%;
   top: 10%;
-  border: 2px solid black;
 
   @media (max-width: 700px) {
     position: absolute;
@@ -200,12 +199,13 @@ export const CheckBoxDiv = styled.div`
 `;
 
 export const CustomAnchor = styled.a`
+  position: relative;
   ${(props) =>
     props.id === "forgot" &&
     css`
-      display: block;
-      width: 100%;
-      height: 20px;
+      display: inline-block;
+      top: 75%;
+
       border: 2px solid red;
     `}
 
@@ -215,23 +215,18 @@ export const CustomAnchor = styled.a`
       display: contents;
       text-decoration: none;
     `}
-
-  
-
-
   color: #5352ed;
 `;
 
 export const ShowEye = styled(FaRegEye)`
   position: relative;
+  top: 45%;
+
   color: #91919f;
-  width: 100%;
-  display: block;
+  width: 18%;
 
-  top: 46%;
-  left: 100%;
-
-  font-size: 1.3em;
+  border: 2px solid black;
+  font-size: 1.5em;
   cursor: pointer;
 `;
 

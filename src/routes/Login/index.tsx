@@ -16,7 +16,6 @@ import { StyledImage } from "../../components/Image";
 import HeaderImage from "../../components/assets/Saly-10.svg";
 import { useFormik } from "formik";
 import { loginSchema } from "../../validation";
-import { getLoginDetails } from "../../store/saga/login";
 import { EmailValidation } from "../../components/Validation";
 
 type LoginStateType = {
@@ -71,6 +70,9 @@ const Login = (props: LoginStateType) => {
               placeholder="Email"
               value={values.email}
             ></CustomInput>
+            {errors.email && touched.email ? (
+              <EmailValidation id="email"></EmailValidation>
+            ) : null}
 
             <CustomInput
               type={`${visibility ? "text" : "password"}`}
@@ -88,7 +90,9 @@ const Login = (props: LoginStateType) => {
           )} */}
             <CustomButton id="loginBtn">Login</CustomButton>
 
-            <CustomAnchor href="/" id="forgot"></CustomAnchor>
+            <CustomAnchor href="/" id="forgot">
+              Forgot Password?
+            </CustomAnchor>
             <Text id="noAcc">
               Don’t have an account yet?{"\u00a0"}
               <CustomAnchor href="/">Sign Up</CustomAnchor>

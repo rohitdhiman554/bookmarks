@@ -1,8 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledImage = styled.img`
-  position: absolute;
-  width: 130%;
-  height: 100%;
-  left: 50px;
+  ${(props) =>
+    props.id === "bookmarkIcon" &&
+    css`
+      margin-left: 10%;
+      margin-top: 10%;
+    `}
 `;

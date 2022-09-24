@@ -12,17 +12,34 @@ export const sendRequest = async (method: string, path: string, data: any) => {
     },
     body: JSON.stringify(data),
   };
+
   const getMethod = {
     method: method,
     headers: {
       Authorization: `Bearer ${auth}`,
     },
   };
-  const putMethod = {};
+  const putMethod = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    },
+    body: JSON.stringify(data),
+  };
 
-  const deleteMethod = {};
+  const deleteMethod = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    },
+    body: JSON.stringify(data),
+  };
 
-  let result = fetch(
+  let result = await fetch(
     URL.concat(path),
     method === "POST"
       ? postMethod
@@ -33,6 +50,6 @@ export const sendRequest = async (method: string, path: string, data: any) => {
       : deleteMethod
   );
 
-  result = (await result).json();
+  result = await result.json();
   return result;
 };

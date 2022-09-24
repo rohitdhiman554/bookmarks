@@ -1,6 +1,5 @@
 import { Actions } from "../userAuth/type";
 import {
-  CREATE_FOLDER_REQUEST,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
   REGISTRATION_SUCCESS,

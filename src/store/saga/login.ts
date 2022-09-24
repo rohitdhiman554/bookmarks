@@ -3,8 +3,8 @@ import { LOGIN_FAILURE, LOGIN_SUCCESS } from "../actionsTypes";
 import { sendRequest } from "./service";
 
 export function* getLoginDetails(action: any): any {
-  let data = action.payload;
   try {
+    let data = action.payload;
     let response = yield sendRequest("POST", "login", {
       email: data.email,
       password: data.password,

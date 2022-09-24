@@ -1,7 +1,10 @@
 import { LOGIN } from "../../utils/routeConstants";
 import {
+  CREATE_BOOKMARKS_REQUEST,
   CREATE_FOLDER_REQUEST,
+  DELETE_FOLDER_REQUEST,
   GET_ALL_FOLDERS_REQUEST,
+  RENAME_FOLDER_REQUEST,
   SIGNUP,
 } from "../actionsTypes";
 
@@ -40,5 +43,38 @@ export const createNewFolder = (name: string) => {
 export const getFolder = () => {
   return {
     type: GET_ALL_FOLDERS_REQUEST,
+  };
+};
+
+export const renameFolderRequest = (obj: any) => {
+  return {
+    type: RENAME_FOLDER_REQUEST,
+    payload: {
+      folderId: obj.folderId,
+      name: obj.name,
+    },
+  };
+};
+
+export const deleteFolderRequest = (id: string) => {
+  return {
+    type: DELETE_FOLDER_REQUEST,
+    payload: {
+      id: id,
+    },
+  };
+};
+
+export const createBookmarksRequest = (obj: any) => {
+  return {
+    type: CREATE_BOOKMARKS_REQUEST,
+    payload: obj,
+  };
+};
+
+export const deleteBookmarkRequest = (obj: any) => {
+  return {
+    type: DELETE_FOLDER_REQUEST,
+    payload: obj,
   };
 };

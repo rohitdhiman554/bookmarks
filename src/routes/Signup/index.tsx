@@ -2,6 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { useFormik } from "formik";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 import { CustomButton } from "../../components/Button";
 import { inputState } from "../../store/actions";
@@ -21,6 +22,7 @@ import GoogleIcon from "../../components/assets/googleicon.svg";
 import HeaderImage from "../../components/assets/Saly-10.svg";
 import { userSignUp } from "../../store/actions/index";
 import {
+  EmailValidation,
   NameValidation,
   PasswordValidation,
 } from "../../components/Validation";
@@ -38,7 +40,7 @@ const initialValues = {
 
 const Signup = (props: SignupState) => {
   const [visibility, setVisibility] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -99,9 +101,7 @@ const Signup = (props: SignupState) => {
               placeholder="Email"
             ></CustomInput>
             {errors.email && touched.email ? (
-              <PasswordValidation id="password">
-                {errors.password}
-              </PasswordValidation>
+              <EmailValidation id="email">{errors.email}</EmailValidation>
             ) : null}
 
             <CustomInput
@@ -113,17 +113,14 @@ const Signup = (props: SignupState) => {
               name="password"
               placeholder="Password"
             ></CustomInput>
+            <ShowEye></ShowEye>
 
             {errors.password && touched.password ? (
               <PasswordValidation id="password">
                 {errors.password}
               </PasswordValidation>
             ) : null}
-            {/* {!visibility ? (
-              <ShowEye onClick={handleVisibilty}></ShowEye>
-            ) : (
-              <HideEye onClick={handleVisibilty}></HideEye>
-            )} */}
+
             <CheckBoxDiv>
               <CustomInput
                 type="checkbox"
@@ -139,7 +136,7 @@ const Signup = (props: SignupState) => {
                 </CustomAnchor>
               </Text>
             </CheckBoxDiv>
-            <CustomButton id="signupBtn" type="submit">
+            <CustomButton id="signupBtn" type="submit" onClick={() => {}}>
               Sign Up
             </CustomButton>
             <Text id="orwith">Or with</Text>

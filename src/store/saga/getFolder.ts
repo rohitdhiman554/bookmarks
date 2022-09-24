@@ -9,9 +9,12 @@ export function* getFolder(): any {
   if (localStorage.getItem("auth")) {
     try {
       let response = yield sendRequest("GET", "folders", {});
-      yield put({ type: GET_ALL_FOLDERS_SUCCESS, response });
+      yield put({
+        type: GET_ALL_FOLDERS_SUCCESS,
+        payload: { folders: response },
+      });
     } catch (error) {
-      yield put({ type: GET_ALL_FOLDERS_FAILURE, error });
+      yield put({ type: GET_ALL_FOLDERS_FAILURE, payload: { error: error } });
     }
   }
 }
