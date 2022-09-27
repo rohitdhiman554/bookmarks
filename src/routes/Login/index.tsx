@@ -88,7 +88,9 @@ const Login = (props: LoginStateType) => {
           ) : (
             <HideEye  onClick={handleVisibilty}></HideEye>
           )} */}
-            <CustomButton id="loginBtn">Login</CustomButton>
+            <CustomButton id="loginBtn" type="submit">
+              Login
+            </CustomButton>
 
             <CustomAnchor href="/" id="forgot">
               Forgot Password?

@@ -56,11 +56,11 @@ export const renameFolderRequest = (obj: any) => {
   };
 };
 
-export const deleteFolderRequest = (id: string) => {
+export const deleteFolderRequest = (obj: string) => {
   return {
     type: DELETE_FOLDER_REQUEST,
     payload: {
-      id: id,
+      obj: obj,
     },
   };
 };

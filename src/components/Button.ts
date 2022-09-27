@@ -1,3 +1,5 @@
+import Menu from "@mui/material/Menu";
+import { FaEllipsisV } from "react-icons/fa";
 import styled, { css } from "styled-components";
 
 export const CustomButton = styled.button`
@@ -59,10 +61,20 @@ export const CustomButton = styled.button`
   font-size: 1em;
 `;
 
+export const AddLink = styled.button`
+  cursor: pointer;
+  background: transparent;
+  border: 2px solid #5352ed;
+  border-radius: 2em;
+  padding: 4%;
+  color: #5352ed;
+  font-size: 1em;
+`;
+
 export const FavouriteButton = styled.button`
   width: 80%;
   margin: auto;
-  margin-top: 70%;
+  margin-top: 15%;
   margin-bottom: 3%;
   display: flex;
   font-size: 1.2em;
@@ -122,4 +134,35 @@ export const QuickLinkButton = styled.button`
       border-radius: 1em;
       background: white; ;
     `}
+`;
+
+export const ModalButton = styled.button`
+  cursor: pointer;
+  ${(props) =>
+    props.id === "close" &&
+    css`
+      background: transparent;
+      font-size: 1em;
+      border: none;
+    `}
+
+  ${(props) =>
+    props.id === "saveModal" &&
+    css`
+      background: #5352ed;
+      width: 40%;
+      border-radius: 1em;
+      padding: 5%;
+      border: none;
+      color: white;
+      margin: auto;
+      margin-top: 5%;
+    `}
+`;
+
+export const FolderSettings = styled(FaEllipsisV)`
+  flex-grow: 5;
+  margin-left: 30%;
+  cursor: pointer;
+  color: black;
 `;

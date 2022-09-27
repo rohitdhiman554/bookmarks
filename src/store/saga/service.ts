@@ -39,7 +39,7 @@ export const sendRequest = async (method: string, path: string, data: any) => {
     body: JSON.stringify(data),
   };
 
-  let result = await fetch(
+  const result = await fetch(
     URL.concat(path),
     method === "POST"
       ? postMethod
@@ -50,6 +50,6 @@ export const sendRequest = async (method: string, path: string, data: any) => {
       : deleteMethod
   );
 
-  result = await result.json();
-  return result;
+  const response = await result.json();
+  return response;
 };

@@ -1,17 +1,27 @@
-import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
-import { folderReducer } from "../../store/reducer/Folders/index";
+import { useState } from "react";
+import { connect } from "react-redux";
+
 import { Dispatch } from "redux";
 import {
   createBookmarksRequest,
   deleteBookmarkRequest,
 } from "../../store/actions";
+import QuickLinkImg from "../../components/assets/quickLink.svg";
+import { QuickLinkButton } from "../../components/Button";
+import {
+  QuickLink,
+  QuickLinkDiv1,
+  HeadingDiv,
+  UrlDiv,
+  UrlInput,
+  QuickLinkButtonsDiv,
+  FolderNameInput,
+  QuickLinkDiv2,
+} from "./style";
 
 type BookmarksType = {
   createBookmark: (obj: any) => void;
-  deleteBookmark: (id: string) => void;
-  id: string;
-  name: string;
+  folder?: string;
 };
 
 const Bookmark = (props: BookmarksType) => {
@@ -20,25 +30,65 @@ const Bookmark = (props: BookmarksType) => {
   const addUrl = (e: any) => {
     setUrl(e.target.value);
   };
+
   const handleBookmark = () => {
     let obj = {
       url: url,
-      name: props.name,
+      name: props.folder,
     };
     setUrl("");
     props.createBookmark(obj);
   };
 
-  const handleDeleteBookmark = () => {
-    props.deleteBookmark(props.id);
-  };
-
   return (
     <>
-      Create Bookmarks
-      <input type="text" placeholder="Enter Url" onChange={addUrl}></input>
-      <button onClick={handleBookmark}>Add Bookmark</button>
-      <button onClick={handleDeleteBookmark}>Delete Bookmark</button>
+      <QuickLink>
+        <QuickLinkDiv1>
+          <HeadingDiv id="quicklink">Add Quick Link</HeadingDiv>
+          <p
+            style={{
+              color: "white",
+              margin: "3% 0 0 5%",
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.89em",
+            }}
+          >
+            URL
+          </p>
+          <UrlDiv>
+            <UrlInput
+              type="text"
+              placeholder="url"
+              onChange={addUrl}
+            ></UrlInput>
+          </UrlDiv>
+          <p
+            style={{
+              color: "white",
+              margin: "4% 0 0 5%",
+              fontFamily: "Inter, sans-serif",
+              fontSize: "0.89em",
+            }}
+          >
+            FOLDER
+          </p>
+
+          <QuickLinkButtonsDiv>
+            <FolderNameInput
+              type="text"
+              id="rootBtn"
+              value={props.folder != "" ? props.folder : ""}
+            ></FolderNameInput>
+            <QuickLinkButton id="saveBtn" onClick={handleBookmark}>
+              Save
+            </QuickLinkButton>
+          </QuickLinkButtonsDiv>
+        </QuickLinkDiv1>
+
+        <QuickLinkDiv2>
+          <img src={QuickLinkImg} width={300} height={300} />
+        </QuickLinkDiv2>
+      </QuickLink>
     </>
   );
 };
@@ -46,7 +96,7 @@ const Bookmark = (props: BookmarksType) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     createBookmark: (obj: any) => dispatch(createBookmarksRequest(obj)),
-    deleteBookmark: (id: any) => dispatch(deleteBookmarkRequest(id)),
+    // deleteBookmark: (id: any) => dispatch(deleteBookmarkRequest(id)),
   };
 };
 
