@@ -1,4 +1,5 @@
 import { put } from "redux-saga/effects";
+
 import { REGISTRATION_FAIL, REGISTRATION_SUCCESS } from "../actionsTypes";
 import { sendRequest } from "./service";
 

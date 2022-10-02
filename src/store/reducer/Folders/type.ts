@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type UserState = {
   name: string;
   email: string;
@@ -17,6 +19,19 @@ export type FolderState = {
   deletedAt: string;
 };
 
+export type AllFoldersState = {
+  name: string;
+  id: string;
+  createdAt: any;
+}[];
+
+export type CreateFolderRequest = {
+  type: "CREATE_FOLDER_REQUEST";
+  payload: {
+    folder: FolderState;
+  };
+};
+
 export type CreateFolderSuccess = {
   type: "CREATE_FOLDER_SUCCESS";
   payload: {
@@ -31,11 +46,13 @@ export type CreateFolderFailure = {
   };
 };
 
-export type AllFoldersState = {
-  name: string;
-  id: string;
-  createdAt: any;
-}[];
+export type AllFoldersRequest = {
+  type: "GET_ALL_FOLDERS_REQUEST";
+  payload: {
+    error: any;
+    folders: AllFoldersState;
+  };
+};
 
 export type AllFoldersSuccess = {
   type: "GET_ALL_FOLDERS_SUCCESS";
@@ -79,12 +96,49 @@ export type DeleteFolderFailure = {
     error: any;
   };
 };
+
+export type CreateBookmarkRequest = {
+  type: "CREATE_BOOKMARKS_REQUEST";
+  payload: {
+    url: string;
+    bookmarkName: string;
+  };
+};
+
+export type CreateBookmarkSuccess = {
+  type: "CREATE_BOOKMARK_SUCCESS";
+  payload: {
+    url: string;
+    name: string;
+  };
+};
+
+export type GetBookMarkRequest = {
+  type: "GET_BOOKMARK_REQUEST";
+};
+
+export type GetBookmarkSuccess = {
+  type: "GET_BOOKMARK_SUCCESS";
+  payload: {
+    imageUrl: string;
+    isFavorite: boolean;
+    name: string;
+    url: string;
+  };
+};
+
 export type folderReducerActions =
+  | CreateFolderRequest
   | CreateFolderSuccess
   | CreateFolderFailure
   | AllFoldersSuccess
   | AllFoldersFailure
+  | AllFoldersRequest
   | RenameFolderFailure
   | RenameFolderSuccess
   | DeleteFolderSuccess
-  | DeleteFolderFailure;
+  | DeleteFolderFailure
+  | CreateBookmarkRequest
+  | CreateBookmarkSuccess
+  | GetBookMarkRequest
+  | GetBookmarkSuccess;

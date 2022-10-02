@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import Modal from "@mui/material/Modal";
+import { ClipLoader } from "react-spinners";
+import { Box } from "@mui/material";
 
-import { createNewFolder, getFolder } from "../../store/actions";
+import {
+  createNewFolder,
+  getFolder,
+  userLoginRequest,
+} from "../../store/actions";
 import FolderCard from "./FolderCard";
 import BookmarkIcon from "../../components/assets/bookmark.svg";
 
@@ -23,6 +29,12 @@ import {
   ModalName,
   ModalInput,
   ModalContent,
+  SpinnerDiv,
+  UserDiv,
+  UserAvatar,
+  UserName,
+  UserProfile,
+  UserEmail,
 } from "./style";
 import { StyledImage } from "../../components/Image";
 import {
@@ -31,16 +43,15 @@ import {
   LogoutButton,
   ModalButton,
 } from "../../components/Button";
-import { Box } from "@mui/material";
-import Typography from "@material-ui/core/Typography";
-import styled from "styled-components";
-import { createFolder } from "../../store/saga/createFolder";
 import Bookmark from "./Bookmark";
+import { useGlobalState } from "../../hooks";
+import Bookmarks from "./Bookmarks";
+import UserPhoto from "../../components/assets/avatar.svg";
 
 type DashBoardState = {
   createFolder: (name: string) => void;
   getAllFolders: () => void;
-  folders: any[];
+  getLoginUser: () => void;
 };
 
 export const modalStyle = {
@@ -56,11 +67,19 @@ export const modalStyle = {
 };
 
 const Home = (props: DashBoardState) => {
+  useEffect(() => {
+    props.getAllFolders();
+    props.getLoginUser();
+  }, []);
+
   const [folder, setFolder] = useState("");
   const [subModal, setSubModal] = useState(false);
-  const [folderName, setFolderName] = useState("");
+  const { folders, folderSpinner } = useGlobalState();
+
+  const { userProfile } = useGlobalState();
 
   const createNewFolder = (e: any) => {
+    console.log(e);
     setFolder(e.target.value);
   };
 
@@ -81,8 +100,11 @@ const Home = (props: DashBoardState) => {
 
     setSubModal(false);
   };
-  const getFolderName = (e: any) => {
-    setFolderName(e.target.innerText);
+
+  const handleSearch = (e: any) => {
+    folders.filter((folder: any) => {
+      return folder.name !== e.target.value;
+    });
   };
 
   return (
@@ -93,22 +115,30 @@ const Home = (props: DashBoardState) => {
           <HeadingDiv id="bookmark">BOOKMARK</HeadingDiv>
           <SearchDiv id="search">
             <SearchIcon id="search" />
-            <SearchInput placeholder="Search..." type="text" />
+            <SearchInput
+              placeholder="Search..."
+              type="text"
+              onChange={handleSearch}
+            />
           </SearchDiv>
-
-          <FolderDiv>
-            <AddLink onClick={openModal}>+ Add Link</AddLink>
-            {props.folders.map((folder) => {
-              return (
-                <FolderCard
-                  key={folder.id}
-                  id={folder.id}
-                  name={folder.name}
-                  folderName={getFolderName}
-                />
-              );
-            })}
-          </FolderDiv>
+          {folderSpinner === true ? (
+            <SpinnerDiv>
+              <ClipLoader />
+            </SpinnerDiv>
+          ) : (
+            <FolderDiv>
+              {folders.map((folder: any) => {
+                return (
+                  <FolderCard
+                    key={folder.id}
+                    id={folder.id}
+                    name={folder.name}
+                  />
+                );
+              })}
+              <AddLink onClick={openModal}>+ Add Folder</AddLink>
+            </FolderDiv>
+          )}
 
           <FavouriteButton>
             <FavIcon />
@@ -122,60 +152,80 @@ const Home = (props: DashBoardState) => {
         </LeftPanel>
 
         <RightPanel>
-          {folderName != "" ? <Bookmark folder={folderName} /> : <Bookmark />}
+          <UserDiv>
+            <UserAvatar>
+              <img src={UserPhoto} width={50} height={50} />
+            </UserAvatar>
+            <UserProfile>
+              <UserName>{userProfile.name}</UserName>
+              <UserEmail>{userProfile.email}</UserEmail>
+            </UserProfile>
+          </UserDiv>
+
+          <Bookmark />
 
           <Modal open={subModal}>
             <Box sx={modalStyle}>
-              <ModalHeading>
-                <ModalName>CREATE FOLDER</ModalName>
-                <ModalButton id="close" onClick={closeModal}>
-                  X
-                </ModalButton>
-              </ModalHeading>
-              <ModalContent>
-                <p
-                  style={{
-                    marginLeft: "5%",
-                    marginTop: "3%",
-                    color: " #808081",
-                    fontFamily: "Inter,sans-serif",
-                  }}
-                >
-                  FOLDER NAME
-                </p>
-                <ModalInput
-                  type="text"
-                  placeholder="Enter Folder name"
-                  onChange={createNewFolder}
-                ></ModalInput>
-                <ModalButton id="saveModal" onClick={saveFolder}>
-                  Save
-                </ModalButton>
-              </ModalContent>
+              {folderSpinner === true ? (
+                <SpinnerDiv>
+                  <ClipLoader />
+                </SpinnerDiv>
+              ) : (
+                <>
+                  <ModalHeading>
+                    <ModalName>CREATE FOLDER</ModalName>
+                    <ModalButton id="close" onClick={closeModal}>
+                      X
+                    </ModalButton>
+                  </ModalHeading>
+                  <ModalContent>
+                    <p
+                      style={{
+                        marginLeft: "5%",
+                        marginTop: "3%",
+                        color: " #808081",
+                        fontFamily: "Inter,sans-serif",
+                      }}
+                    >
+                      FOLDER NAME
+                    </p>
+                    <ModalInput
+                      type="text"
+                      placeholder="Enter Folder name"
+                      onChange={createNewFolder}
+                    ></ModalInput>
+                    <ModalButton id="saveModal" onClick={saveFolder}>
+                      Save
+                    </ModalButton>
+                  </ModalContent>
+                </>
+              )}
             </Box>
           </Modal>
-
           <SearchBookmark>
             <SearchDiv id="bookmarkSearch">
-              <SearchIcon id="bookmarkSearch" />
-              <SearchInput placeholder="Search..." type="text" />
+              <SearchIcon id="bookmarkSearchIcon" />
+              <SearchInput
+                id="bookmarkSearchInput"
+                placeholder="Search..."
+                type="text"
+              />
             </SearchDiv>
           </SearchBookmark>
+
+          <Bookmarks />
         </RightPanel>
       </MainDiv>
     </>
   );
 };
-const mapStateToProps = (state: any) => {
-  return {
-    folders: state.folderReducer.folders,
-  };
-};
+
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     createFolder: (name: string) => dispatch(createNewFolder(name)),
     getAllFolders: () => dispatch(getFolder()),
+    getLoginUser: () => dispatch(userLoginRequest()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);

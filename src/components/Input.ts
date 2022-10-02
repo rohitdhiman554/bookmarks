@@ -1,14 +1,26 @@
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+
 import styled, { css } from "styled-components";
 
-export const InputItems = styled.div`
+export const FormDiv = styled.div``;
+
+export const InputItems = styled.form`
   display: flex;
-  position: relative;
-  width: 40%;
-  height: 80%;
-  left: 48%;
-  top: 10%;
+  flex-direction: column;
+  width: 38%;
+  margin-left: 50%;
+
+  ${(props) =>
+    props.id === "signupItems" &&
+    css`
+      margin-top: 12%;
+    `}
+  ${(props) =>
+    props.id === "loginItems" &&
+    css`
+      margin-top: 20%;
+    `}
+  
 
   @media (max-width: 700px) {
     position: absolute;
@@ -21,51 +33,33 @@ export const InputItems = styled.div`
 `;
 
 export const CustomInput = styled.input`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   font-size: ${(props) => (props.placeholder = "15px")};
-  position: absolute;
-  padding: 0.75em;
+  padding: 3.5%;
+  border: 1px solid #f1f1fa;
+  border-radius: 1em;
 
   ${(props) =>
     props.id === "name" &&
     css`
-      width: 96%;
-      height: 5%;
-      top: 16%;
-      border: 1px solid #f1f1fa;
-      border-radius: 1em;
+      margin-top: 8%;
     `}
 
   ${(props) =>
     props.id === "email" &&
     css`
-      width: 96%;
-      height: 5%;
-      top: 31%;
-      border: 1px solid #f1f1fa;
-      border-radius: 1em;
+      margin-top: 8%;
     `}
-  
-  ${(props) =>
+    ${(props) =>
     props.id === "password" &&
     css`
-      width: 96%;
-      height: 5%;
-      top: 46%;
-      border: 1px solid #f1f1fa;
-      border-radius: 1em;
+      margin-top: 8%;
     `}
-  
-    ${(props) =>
+
+  ${(props) =>
     props.id === "check" &&
     css`
-      position: relative;
-      top: -10px;
-      width: 22px;
-     
+     width:5%;
+    
       
       @media (max-width: 1045px) {
         top: -20px;
@@ -77,8 +71,6 @@ export const CustomInput = styled.input`
         top: 0px;
      
     `}
-    
-
 
   -ms-input-placeholder {
     color: black;
@@ -86,15 +78,12 @@ export const CustomInput = styled.input`
 `;
 
 export const Text = styled.p`
-  display: flex;
   ${(props) =>
     props.id === "signin" &&
     css`
-      position: relative;
-      width: 100%;
-
       font-family: Inter, sans-serif;
       font-style: normal;
+      margin-left: 2%;
       font-weight: 400;
       font-size: 1em;
       line-height: 1.5em;
@@ -103,13 +92,9 @@ export const Text = styled.p`
   ${(props) =>
     props.id === "login" &&
     css`
-      position: absolute;
-      width: 100%;
-
-      top: 95%;
       font-family: Inter, sans-serif;
-      align-items: center;
-      justify-content: center;
+      text-align: center;
+      margin-top: 4%;
       font-style: normal;
       font-size: 1.01em;
       color: #000000;
@@ -140,12 +125,9 @@ export const Text = styled.p`
     ${(props) =>
     props.id === "orwith" &&
     css`
-      position: absolute;
-      width: 100%;
-      top: 79%;
       font-family: "'Inter', sans-serif;";
-      align-items: center;
-      justify-content: center;
+      text-align: center;
+      margin-top: 3%;
       color: #91919f;
       font-style: normal;
       font-weight: 300;
@@ -162,14 +144,9 @@ export const Text = styled.p`
     ${(props) =>
     props.id === "noAcc" &&
     css`
-      position: absolute;
-      width: 100%;
-
-      top: 90%;
       font-family: Inter, sans-serif;
-      align-items: center;
-      justify-content: center;
-      color: #91919f;
+      margin-top: 23%;
+      text-align: center;
       font-weight: 300;
       font-size: 1.05em;
 
@@ -192,50 +169,39 @@ export const Text = styled.p`
 `;
 
 export const CheckBoxDiv = styled.div`
-  width: 96%;
-  position: absolute;
   display: flex;
-  top: 58%;
+
+  margin-top: 4%;
 `;
 
 export const CustomAnchor = styled.a`
-  position: relative;
+  text-decoration: none;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  color: #5352ed;
   ${(props) =>
     props.id === "forgot" &&
     css`
-      display: inline-block;
-      top: 75%;
-
-      border: 2px solid red;
+      text-align: center;
+      margin-top: 8%;
+      font-size: 1.15em;
     `}
-
-  ${(props) =>
-    props.id === "terms" &&
-    css`
-      display: contents;
-      text-decoration: none;
-    `}
-  color: #5352ed;
 `;
 
 export const ShowEye = styled(FaRegEye)`
-  position: relative;
-  top: 45%;
-
   color: #91919f;
-  width: 18%;
-
-  border: 2px solid black;
+  position: absolute;
+  top: 49%;
+  right: 8%;
   font-size: 1.5em;
   cursor: pointer;
 `;
 
 export const HideEye = styled(FaRegEyeSlash)`
-  position: relative;
+  position: absolute;
+  top: 49%;
+  right: 8%;
   color: #91919f;
-  height: 4%;
-  top: 46%;
-  left: 90%;
   font-size: 1.3em;
   cursor: pointer;
 `;

@@ -1,4 +1,3 @@
-import Menu from "@mui/material/Menu";
 import { FaEllipsisV } from "react-icons/fa";
 import styled, { css } from "styled-components";
 
@@ -7,18 +6,15 @@ export const CustomButton = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  position: absolute;
+  cursor: pointer;
 
   ${(props) =>
     props.id === "signupBtn" &&
     css`
-      width: 100%;
-      height: 8%;
-      top: 72%;
-
       background: #5352ed;
       border: none;
+      margin-top: 4%;
+      padding: 3%;
       color: white;
       @media (max-width: 1045px) {
         top: 75%;
@@ -33,20 +29,16 @@ export const CustomButton = styled.button`
   ${(props) =>
     props.id === "loginBtn" &&
     css`
-      width: 100%;
-      height: 8%;
-      top: 58%;
-
       background: #5352ed;
       border: none;
       color: white;
+      margin-top: 8%;
+      padding: 4.25%;
     `}
   ${(props) =>
     props.id === "googleBtn" &&
     css`
-      width: 100%;
-      height: 8%;
-      top: 88%;
+      margin-top: 3%;
       border: 2px solid #f1f1fa;
       background: white;
       @media (max-width: 1045px) {
@@ -67,6 +59,9 @@ export const AddLink = styled.button`
   border: 2px solid #5352ed;
   border-radius: 2em;
   padding: 4%;
+  width: 90%;
+  margin: auto;
+  margin-top: 3.5%;
   color: #5352ed;
   font-size: 1em;
 `;
@@ -85,14 +80,14 @@ export const FavouriteButton = styled.button`
   font-family: Inter, sans-serif;
   font-weight: 600;
   color: #77757f;
-
+  cursor: pointer;
   background: #e4e3ff;
   border-radius: 1em;
 `;
 
 export const LogoutButton = styled.button`
   width: 80%;
-
+  cursor: pointer;
   margin: auto;
   display: flex;
   font-size: 1.2em;
@@ -108,11 +103,13 @@ export const LogoutButton = styled.button`
 `;
 
 export const QuickLinkButton = styled.button`
+  cursor: pointer;
   ${(props) =>
     props.id === "rootBtn" &&
     css`
-      padding: 3%;
+      padding: 2%;
       width: 45%;
+
       font-size: 1em;
       color: white;
       font-family: Inter, sans-serif;
@@ -124,15 +121,16 @@ export const QuickLinkButton = styled.button`
   ${(props) =>
     props.id === "saveBtn" &&
     css`
-      padding: 3%;
-      width: 32%;
+      width: 35%;
+      margin-left: 6%;
       font-size: 1em;
       color: #6c6bf9;
       font-weight: 600;
       font-family: Inter, sans-serif;
       border: none;
       border-radius: 1em;
-      background: white; ;
+      background: white;
+      cursor: pointer;
     `}
 `;
 
@@ -160,9 +158,22 @@ export const ModalButton = styled.button`
     `}
 `;
 
+export const FolderNameButton = styled.button`
+  cursor: pointer;
+  padding: 3%;
+  width: 45%;
+  font-size: 1em;
+  color: white;
+  font-family: Inter, sans-serif;
+  border: none;
+  border-radius: 1em;
+  background: #6c6bf9;
+`;
+
 export const FolderSettings = styled(FaEllipsisV)`
   flex-grow: 5;
   margin-left: 30%;
   cursor: pointer;
   color: black;
+  cursor: pointer;
 `;

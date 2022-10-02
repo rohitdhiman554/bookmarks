@@ -6,11 +6,12 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 import { CustomButton } from "../../components/Button";
 import { inputState } from "../../store/actions";
-import { MainDiv, HeadingDiv, RightDiv, Header } from "./style";
+import { MainDiv, HeadingDiv, RightDiv, Header, LeftDiv } from "./style";
 import {
   CheckBoxDiv,
   CustomAnchor,
   CustomInput,
+  FormDiv,
   HideEye,
   InputItems,
   ShowEye,
@@ -47,6 +48,7 @@ const Signup = (props: SignupState) => {
       initialValues: initialValues,
       validationSchema: signUpSchema,
       onSubmit: (values, actions) => {
+        console.log(values);
         props.getRegistrationDetails(values);
         actions.resetForm();
       },
@@ -63,29 +65,29 @@ const Signup = (props: SignupState) => {
   return (
     <>
       <MainDiv>
-        <HeadingDiv>
-          Welcome,
-          <br />
-          <b>Get Started</b>
-        </HeadingDiv>
-        <StyledImage src={HeaderImage} />
-      </MainDiv>
+        <LeftDiv>
+          <HeadingDiv>
+            Welcome,
+            <br />
+            <b>Get Started</b>
+          </HeadingDiv>
+          <StyledImage src={HeaderImage} id="headingImage" />
+        </LeftDiv>
 
-      <RightDiv>
-        <Header>
-          <b>SignUp</b>
-        </Header>
+        <RightDiv>
+          <Header>
+            <b>SignUp</b>
+          </Header>
 
-        <InputItems>
-          <form onSubmit={handleSubmit}>
+          <InputItems id="signupItems" onSubmit={handleSubmit}>
             <CustomInput
               type="text"
+              id="name"
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Name"
               name="name"
-              id="name"
             ></CustomInput>
             {errors.name && touched.name ? (
               <NameValidation id="name">{errors.name}</NameValidation>
@@ -93,8 +95,8 @@ const Signup = (props: SignupState) => {
 
             <CustomInput
               type="email"
-              value={values.email}
               id="email"
+              value={values.email}
               name="email"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -113,7 +115,7 @@ const Signup = (props: SignupState) => {
               name="password"
               placeholder="Password"
             ></CustomInput>
-            <ShowEye></ShowEye>
+            {/* <ShowEye></ShowEye> */}
 
             {errors.password && touched.password ? (
               <PasswordValidation id="password">
@@ -136,6 +138,7 @@ const Signup = (props: SignupState) => {
                 </CustomAnchor>
               </Text>
             </CheckBoxDiv>
+
             <CustomButton id="signupBtn" type="submit" onClick={() => {}}>
               Sign Up
             </CustomButton>
@@ -150,9 +153,9 @@ const Signup = (props: SignupState) => {
                 Login
               </CustomAnchor>
             </Text>
-          </form>
-        </InputItems>
-      </RightDiv>
+          </InputItems>
+        </RightDiv>
+      </MainDiv>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { put } from "redux-saga/effects";
-import { DELETE_FOLDER_FAILURE, DELETE_FOLDER_SUCCESS } from "../actionsTypes";
 import { sendRequest } from "./service";
+
+import { DELETE_FOLDER_FAILURE, DELETE_FOLDER_SUCCESS } from "../actionsTypes";
 
 export function* deleteFolder(action: any): any {
   let data = action.payload.obj;

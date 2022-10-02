@@ -1,9 +1,10 @@
 import { put } from "redux-saga/effects";
+import { sendRequest } from "./service";
+
 import {
   GET_ALL_FOLDERS_FAILURE,
   GET_ALL_FOLDERS_SUCCESS,
 } from "../actionsTypes";
-import { sendRequest } from "./service";
 
 export function* getFolder(): any {
   if (localStorage.getItem("auth")) {

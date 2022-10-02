@@ -1,9 +1,10 @@
 import { put } from "redux-saga/effects";
+import { sendRequest } from "./service";
+
 import {
   CREATE_BOOKMARKS_FAILURE,
   CREATE_BOOKMARK_SUCCESS,
 } from "../actionsTypes";
-import { sendRequest } from "./service";
 
 export function* createBookmark(action: any): any {
   let data = action.payload;
@@ -14,7 +15,18 @@ export function* createBookmark(action: any): any {
       name: data.name,
     });
 
-    yield put({ type: CREATE_BOOKMARK_SUCCESS, payload: response });
+    yield sendRequest("PATCH", "move-bookmark", {
+      folderId: data.folderId,
+      bookmarkId: response.id,
+    });
+
+    yield put({
+      type: CREATE_BOOKMARK_SUCCESS,
+      payload: {
+        url: response.url,
+        name: response.name,
+      },
+    });
   } catch (error) {
     yield put({ type: CREATE_BOOKMARKS_FAILURE, payload: error });
   }

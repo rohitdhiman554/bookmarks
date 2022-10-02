@@ -1,9 +1,10 @@
 import { put } from "redux-saga/effects";
+import { sendRequest } from "./service";
+
 import {
   DELETE_BOOKMARKS_FAILURE,
   DELETE_BOOKMARKS_SUCCESS,
 } from "../actionsTypes";
-import { sendRequest } from "./service";
 
 export function* deleteBookmark(action: any): any {
   let data = action.payload;

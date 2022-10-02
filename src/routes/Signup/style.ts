@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const MainDiv = styled.div`
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+`;
+
+export const LeftDiv = styled.div`
   width: 30%;
   height: 100vh;
+  z-index: 3;
 
   background: #5352ed;
   @media (max-width: 700px) {
@@ -16,13 +16,8 @@ export const MainDiv = styled.div`
 `;
 
 export const RightDiv = styled.div`
-  position: absolute;
-  top: 0px;
-  left: 30%;
   width: 70%;
-  height: 100vh;
   background: #5352ed;
-  z-index: -1;
   background: #ffffff;
 
   @media (max-width: 700px) {
@@ -33,10 +28,8 @@ export const RightDiv = styled.div`
 `;
 
 export const HeadingDiv = styled.div`
-  position: relative;
-  top: 10%;
-  left: 15%;
-
+  margin-left: 14%;
+  margin-top: 16%;
   font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 400;

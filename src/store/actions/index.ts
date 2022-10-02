@@ -4,6 +4,8 @@ import {
   CREATE_FOLDER_REQUEST,
   DELETE_FOLDER_REQUEST,
   GET_ALL_FOLDERS_REQUEST,
+  GET_BOOKMARK_REQUEST,
+  GET_ME_REQUEST,
   RENAME_FOLDER_REQUEST,
   SIGNUP,
 } from "../actionsTypes";
@@ -30,6 +32,12 @@ export const userLogin = (data: LoginState) => {
   return {
     type: LOGIN,
     payload: data,
+  };
+};
+
+export const userLoginRequest = () => {
+  return {
+    type: GET_ME_REQUEST,
   };
 };
 
@@ -76,5 +84,12 @@ export const deleteBookmarkRequest = (obj: any) => {
   return {
     type: DELETE_FOLDER_REQUEST,
     payload: obj,
+  };
+};
+
+export const getBookmarkRequest = (id: string) => {
+  return {
+    type: GET_BOOKMARK_REQUEST,
+    payload: id,
   };
 };

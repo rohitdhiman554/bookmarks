@@ -1,8 +1,16 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { CustomButton } from "../../components/Button";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { HeadingDiv, MainDiv, RightDiv, Header } from "../Signup/style";
+import { useFormik } from "formik";
+
+import {
+  HeadingDiv,
+  MainDiv,
+  RightDiv,
+  Header,
+  LeftDiv,
+} from "../Signup/style";
 import {
   CustomAnchor,
   CustomInput,
@@ -14,7 +22,6 @@ import {
 import { LoginState, userLogin } from "../../store/actions";
 import { StyledImage } from "../../components/Image";
 import HeaderImage from "../../components/assets/Saly-10.svg";
-import { useFormik } from "formik";
 import { loginSchema } from "../../validation";
 import { EmailValidation } from "../../components/Validation";
 
@@ -30,15 +37,15 @@ const initialValues = {
 const Login = (props: LoginStateType) => {
   const [visibility, setVisibility] = useState(false);
 
-  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValues,
-    validationSchema: loginSchema,
-    onSubmit: (values, actions) => {
-      console.log(values);
-      props.getLoginDetails(values);
-      actions.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: loginSchema,
+      onSubmit: (values, actions) => {
+        props.getLoginDetails(values);
+        actions.resetForm();
+      },
+    });
 
   const handleVisibilty = () => {
     setVisibility(!visibility);
@@ -47,21 +54,22 @@ const Login = (props: LoginStateType) => {
   return (
     <Fragment>
       <MainDiv>
-        <HeadingDiv>
-          Welcome,
-          <br />
-          <b>Get Started</b>
-        </HeadingDiv>
+        {" "}
+        <LeftDiv>
+          <HeadingDiv>
+            Welcome,
+            <br />
+            <b>Get Started</b>
+          </HeadingDiv>
 
-        <StyledImage src={HeaderImage} />
-      </MainDiv>
-      <RightDiv>
-        <Header>
-          <b>Login</b>
-        </Header>
+          <StyledImage src={HeaderImage} id="headingImage" />
+        </LeftDiv>
+        <RightDiv>
+          <Header>
+            <b>Login</b>
+          </Header>
 
-        <InputItems>
-          <form onSubmit={handleSubmit}>
+          <InputItems id="loginItems" onSubmit={handleSubmit}>
             <CustomInput
               type="text"
               name="email"
@@ -99,9 +107,9 @@ const Login = (props: LoginStateType) => {
               Don’t have an account yet?{"\u00a0"}
               <CustomAnchor href="/">Sign Up</CustomAnchor>
             </Text>
-          </form>
-        </InputItems>
-      </RightDiv>
+          </InputItems>
+        </RightDiv>
+      </MainDiv>
     </Fragment>
   );
 };

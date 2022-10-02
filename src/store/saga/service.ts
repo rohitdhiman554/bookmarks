@@ -39,15 +39,27 @@ export const sendRequest = async (method: string, path: string, data: any) => {
     body: JSON.stringify(data),
   };
 
+  const patchMethod = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    },
+    body: JSON.stringify(data),
+  };
+
   const result = await fetch(
     URL.concat(path),
     method === "POST"
       ? postMethod
       : method === "GET"
       ? getMethod
-      : method === "PUT"
-      ? putMethod
-      : deleteMethod
+      : method === "DELETE"
+      ? deleteMethod
+      : method === "PATCH"
+      ? patchMethod
+      : putMethod
   );
 
   const response = await result.json();

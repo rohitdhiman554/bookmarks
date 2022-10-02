@@ -2,11 +2,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { ReactNode } from "react";
 
-import { ROOT, LOGIN, HOME, USERS } from "../utils/routeConstants";
+import { ROOT, LOGIN, HOME } from "../utils/routeConstants";
 import Login from "./Login/index";
 import Signup from "./Signup/index";
 import Home from "./Home/index";
-import Users from "./Users";
 
 const routesConfig = [
   {
@@ -25,12 +24,6 @@ const routesConfig = [
     path: HOME,
     component: <Home />,
     privateRoute: true,
-  },
-
-  {
-    path: USERS,
-    component: <Users />,
-    privateRoute: false,
   },
 ];
 

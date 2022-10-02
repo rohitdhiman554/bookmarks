@@ -1,8 +1,7 @@
 import { Actions } from "../userAuth/type";
 import {
-  LOGIN_FAILURE,
-  LOGIN_SUCCESS,
-  REGISTRATION_SUCCESS,
+  GET_ME_REQUEST,
+  GET_ME_SUCCESS,
   SIGNUP,
 } from "../../actionsTypes/index";
 
@@ -10,10 +9,12 @@ interface UserState {
   users: {
     name: string;
   }[];
+  userProfile: any;
 }
 
 const initialState: UserState = {
   users: [],
+  userProfile: {},
 };
 
 const userAuth = (state = initialState, action: Actions) => {
@@ -31,17 +32,15 @@ const userAuth = (state = initialState, action: Actions) => {
         ],
       };
 
-    case REGISTRATION_SUCCESS:
+    case GET_ME_REQUEST:
       return {
         ...state,
       };
 
-    case LOGIN_SUCCESS:
-      return { ...state };
-
-    case LOGIN_FAILURE:
+    case GET_ME_SUCCESS:
       return {
         ...state,
+        userProfile: action.payload,
       };
 
     default:
