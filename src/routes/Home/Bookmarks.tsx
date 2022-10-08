@@ -1,155 +1,270 @@
-import React from "react";
-import { CardContent, Menu, MenuItem } from "@mui/material";
-import styled from "styled-components";
-import { BsJournalBookmarkFill } from "react-icons/bs";
+import React, { useState } from "react";
+import { Box, CardContent, Menu, MenuItem, Modal } from "@mui/material";
 import { FaEllipsisV } from "react-icons/fa";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { SyncLoader } from "react-spinners";
 
-import { useGlobalState } from "../../hooks";
+import { useReducerState } from "../../hooks";
 import {
-  BookmarkCard,
+  AllFolders,
   CardDiscription,
   CardHeading,
-  CardImage,
+  CardImageDiv,
   CardTitle,
+  FavoriteLoader,
+  FilledHeartIcon,
+  Folder,
+  FolderIcon,
+  FolderName,
+  HeartIcon,
+  ModalHeading,
+  ModalLoader,
+  ModalName,
+  SelectFolder,
   StyledCard,
+  VerticalCardContent,
+  VerticalCardDiscription,
+  VerticalCardImage,
+  VerticalMenuItems,
+  VerticalStyledCard,
 } from "./style";
-import { deleteBookmarkRequest } from "../../store/actions";
+
+import { deleteBookmarkRequest, favoriteRequest } from "../../store/actions";
 import DefaultImage from "../../components/assets/defaultBookmark.svg";
-
-const EmptyFolderDiv = styled.div`
-  display: flex;
-  width: 25%;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5%;
-  padding: 2%;
-  flex-direction: column;
-`;
-const Icon = styled.div`
-  color: #5352ed;
-  font-size: 2.5em;
-`;
-const P = styled.div`
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 1.25em;
-  display: flex;
-  align-items: center;
-  color: #474749;
-`;
-const Text = styled.div`
-display:flex;
-flex-wrap:wrap:
-justify-content:center;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 1em;
-line-height: 22px;
-align-items: center;
-color: #77757F;
-`;
-
-const BookmarkSpinnerDiv = styled.div`
-  width: 100%;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { ClipLoader } from "react-spinners";
+import {
+  FaPencilAlt,
+  FaTrash,
+  FaHeart,
+  FaRegHeart,
+  FaRegFile,
+} from "react-icons/fa";
 
 type BookmarkType = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+  isFavorite: boolean;
+  folderId: (folderId: string, bookmarkId: string) => void;
   deleteBookmark: (id: string) => void;
+  toggleFavorite: (id: string) => void;
+};
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 150,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+
+  p: 4,
 };
 const Bookmarks = (props: BookmarkType) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { bookmarks, bookmarkSpinner } = useGlobalState();
   const open = Boolean(anchorEl);
+  const [modal, setModal] = useState(false);
+  const {
+    bookmarks,
+    folders,
+    deleteSpinner,
+    Loading,
+    favoriteSpinner,
+    processing,
+    favId,
+    vertical,
+  } = useReducerState();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const openModal = () => {
+    setModal(true);
     setAnchorEl(null);
   };
+
   const closeModal = () => {};
 
-  const handleDelete = () => {
+  const handleDelete = (id: string) => {
+    props.deleteBookmark(id);
     setAnchorEl(null);
   };
 
   return (
     <>
-      <BookmarkCard>
-        {bookmarkSpinner === true ? (
-          <BookmarkSpinnerDiv>
-            <SyncLoader />
-          </BookmarkSpinnerDiv>
+      <Modal open={processing === true ? true : modal}>
+        {processing === true ? (
+          <ClipLoader />
         ) : (
-          <>
-            {bookmarks.length === 0 ? (
-              <EmptyFolderDiv>
-                <Icon>
-                  <BsJournalBookmarkFill />
-                </Icon>
-                <P>No Bookmarks Found</P>
-                <Text>Keep content organized with Folders</Text>
-              </EmptyFolderDiv>
-            ) : (
-              bookmarks.map((bookmark: any) => {
+          <Box sx={style}>
+            <ModalHeading>
+              <ModalName>SELECT FOLDER</ModalName>
+            </ModalHeading>
+
+            {folders.length != 0 ? (
+              folders.map((folder: any) => {
                 return (
-                  <StyledCard key={bookmark.id} sx={{ maxWidth: 345 }}>
-                    {bookmark.imageUrl === "" ? (
-                      <CardImage src={DefaultImage} />
-                    ) : (
-                      <CardImage src={bookmark.imageUrl} />
-                    )}
-
-                    <CardContent>
-                      <CardTitle>
-                        <CardHeading>{bookmark.name}</CardHeading>
-                        <FaEllipsisV
-                          style={{ marginTop: "1.2%", color: " #9D9B9F" }}
-                          id="basic-button"
-                          aria-controls={open ? "basic-menu" : undefined}
-                          aria-haspopup="true"
-                          aria-expanded={open ? "true" : undefined}
-                          onClick={(event: any) => {
-                            setAnchorEl(event.currentTarget);
-                          }}
-                        ></FaEllipsisV>
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          MenuListProps={{
-                            "aria-labelledby": "basic-button",
-                          }}
-                        >
-                          <MenuItem onClick={openModal}>Rename</MenuItem>
-                          <MenuItem onClick={handleClose}>Sub Folder</MenuItem>
-                          <MenuItem onClick={handleDelete}>Delete</MenuItem>
-                        </Menu>
-                      </CardTitle>
-
-                      <CardDiscription>{bookmark.description}</CardDiscription>
-                    </CardContent>
-                  </StyledCard>
+                  <AllFolders key={folder.id}>
+                    <SelectFolder
+                      onClick={() => {
+                        props.folderId(folder.id, props.id);
+                        setModal(false);
+                      }}
+                    >
+                      <FolderIcon />
+                      <FolderName
+                        onClick={() => {
+                          setModal(false);
+                        }}
+                      >
+                        {folder.name}
+                      </FolderName>
+                    </SelectFolder>
+                  </AllFolders>
                 );
               })
+            ) : (
+              <p>No Selected Folder</p>
             )}
-          </>
+          </Box>
         )}
-      </BookmarkCard>
+      </Modal>
+
+      {vertical === false ? (
+        <StyledCard sx={{ boxShadow: 20, padding: 0 }}>
+          <CardImageDiv>
+            {props.imageUrl === "" ? (
+              <img
+                src={DefaultImage}
+                style={{ width: "100%", height: "100%", borderRadius: "1em" }}
+              />
+            ) : (
+              <img
+                src={props.imageUrl}
+                style={{ width: "100%", height: "100%", borderRadius: "1em" }}
+              />
+            )}
+          </CardImageDiv>
+
+          <CardContent>
+            <CardTitle>
+              <CardHeading>{props.name}</CardHeading>
+              <FaEllipsisV
+                style={{ marginTop: "1.2%", color: " #9D9B9F" }}
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={(event: any) => {
+                  setAnchorEl(event.currentTarget);
+                }}
+              ></FaEllipsisV>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={openModal}>Move</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleDelete(props.id);
+                  }}
+                >
+                  Delete{" "}
+                  {deleteSpinner ? (
+                    <ModalLoader>
+                      <ClipLoader size={10} />
+                    </ModalLoader>
+                  ) : (
+                    ""
+                  )}
+                </MenuItem>
+              </Menu>
+            </CardTitle>
+            <CardDiscription>
+              {props.description === "" ? (
+                <p>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Harum labore esse dolorem repellendus saepe dolor, nihil
+                  suscipit voluptas soluta? Consequatur hic in explicabo
+                  quisquam inventore veniam ratione aut fugit amet!
+                </p>
+              ) : (
+                props.description
+              )}
+            </CardDiscription>
+          </CardContent>
+
+          {props.isFavorite ? (
+            <FilledHeartIcon onClick={() => props.toggleFavorite(props.id)} />
+          ) : (
+            <HeartIcon onClick={() => props.toggleFavorite(props.id)} />
+          )}
+        </StyledCard>
+      ) : (
+        <VerticalStyledCard>
+          <VerticalCardImage>
+            {props.imageUrl === "" ? (
+              <img
+                src={DefaultImage}
+                style={{ width: "100%", height: "100%", borderRadius: "1em" }}
+              />
+            ) : (
+              <img
+                src={props.imageUrl}
+                style={{ width: "100%", height: "100%", borderRadius: "1em" }}
+              />
+            )}
+          </VerticalCardImage>
+          <CardContent>
+            <CardTitle>
+              <CardHeading>{props.name}</CardHeading>
+            </CardTitle>
+
+            <VerticalCardContent>
+              <VerticalCardDiscription>
+                {props.description === "" ? (
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Harum labore esse dolorem repellendus saepe dolor, nihil
+                    suscipit voluptas soluta? Consequatur hic in explicabo
+                    quisquam inventore veniam ratione aut fugit amet!
+                  </p>
+                ) : (
+                  props.description
+                )}
+              </VerticalCardDiscription>
+
+              <VerticalMenuItems>
+                {props.isFavorite ? (
+                  <FaHeart onClick={() => props.toggleFavorite(props.id)} />
+                ) : (
+                  <FaRegHeart onClick={() => props.toggleFavorite(props.id)} />
+                )}
+                <FaRegFile onClick={openModal} />
+                <FaPencilAlt />
+
+                <FaTrash
+                  onClick={() => {
+                    handleDelete(props.id);
+                  }}
+                />
+              </VerticalMenuItems>
+            </VerticalCardContent>
+          </CardContent>
+        </VerticalStyledCard>
+      )}
     </>
   );
 };
@@ -157,6 +272,7 @@ const Bookmarks = (props: BookmarkType) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     deleteBookmark: (id: string) => dispatch(deleteBookmarkRequest(id)),
+    toggleFavorite: (id: string) => dispatch(favoriteRequest(id)),
   };
 };
 

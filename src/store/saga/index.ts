@@ -1,16 +1,18 @@
 import { takeEvery } from "redux-saga/effects";
 
-import { LOGIN } from "../../utils/routeConstants";
 import {
   CREATE_BOOKMARKS_REQUEST,
   CREATE_FOLDER_REQUEST,
   DELETE_BOOKMARKS_REQUEST,
   DELETE_FOLDER_REQUEST,
+  FAVORITE_REQUEST,
   GET_ALL_FOLDERS_REQUEST,
   GET_BOOKMARK_REQUEST,
   GET_ME_REQUEST,
+  LOGIN_REQUEST,
+  MOVE_BOOKMARK_REQUEST,
+  REGISTRATION_REQUEST,
   RENAME_FOLDER_REQUEST,
-  SIGNUP,
 } from "../actionsTypes";
 import { createBookmark } from "./createBookmark";
 import { createFolder } from "./createFolder";
@@ -21,12 +23,14 @@ import getBookmarks from "./getBookmark";
 import { getFolder } from "./getFolder";
 import { getUser } from "./getMe";
 import { getLoginDetails } from "./login";
+import { moveBookmark } from "./moveBookmark";
 import { getRegistrationDetails } from "./register";
 import { renameFolder } from "./renameFolder";
+import { toggleFavorite } from "./toggleFavorite";
 
 function* productSaga() {
-  yield takeEvery(SIGNUP, getRegistrationDetails);
-  yield takeEvery(LOGIN, getLoginDetails);
+  yield takeEvery(REGISTRATION_REQUEST, getRegistrationDetails);
+  yield takeEvery(LOGIN_REQUEST, getLoginDetails);
   yield takeEvery(GET_ME_REQUEST, getUser);
   yield takeEvery(CREATE_FOLDER_REQUEST, createFolder);
   yield takeEvery(GET_ALL_FOLDERS_REQUEST, getFolder);
@@ -35,6 +39,8 @@ function* productSaga() {
   yield takeEvery(CREATE_BOOKMARKS_REQUEST, createBookmark);
   yield takeEvery(DELETE_BOOKMARKS_REQUEST, deleteBookmark);
   yield takeEvery(GET_BOOKMARK_REQUEST, getBookmarks);
+  yield takeEvery(FAVORITE_REQUEST, toggleFavorite);
+  yield takeEvery(MOVE_BOOKMARK_REQUEST, moveBookmark);
 }
 
 export default productSaga;

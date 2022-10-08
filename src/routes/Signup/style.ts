@@ -10,7 +10,7 @@ export const LeftDiv = styled.div`
   z-index: 3;
 
   background: #5352ed;
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     display: none;
   }
 `;
@@ -19,11 +19,10 @@ export const RightDiv = styled.div`
   width: 70%;
   background: #5352ed;
   background: #ffffff;
-
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     position: absolute;
-    left: 0px;
     width: 100%;
+    height: 100vh;
   }
 `;
 
@@ -45,7 +44,13 @@ export const Header = styled.div`
   padding: 10px;
 
   font-size: 25px;
-  @media (width>700px) {
+  @media (width>750px) {
     display: none;
   }
+`;
+
+export const PasswordDiv = styled.div`
+  border: 2px solid black;
+  width: 100%;
+  display: flex;
 `;

@@ -3,10 +3,12 @@ import {
   FaCaretRight,
   FaFolder,
   FaHeart,
+  FaRegHeart,
   FaSearch,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { Card } from "@mui/material";
+import { FadeLoader } from "react-spinners";
 
 export const MainDiv = styled.div`
   display: flex;
@@ -21,7 +23,7 @@ export const LeftPanel = styled.div`
 export const UserDiv = styled.div`
   cursor: pointer;
   display: flex;
-  width: 20%;
+  width: 22%;
   margin-left: auto;
   margin-top: 1%;
   margin-right: 5%;
@@ -29,8 +31,11 @@ export const UserDiv = styled.div`
 
 export const UserProfile = styled.div`
   width: 80%;
+  margin-left: 6%;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 export const UserEmail = styled.div`
@@ -40,13 +45,14 @@ export const UserEmail = styled.div`
   font-size: 0.9em;
 `;
 export const UserName = styled.div`
-  padding: 2%;
   color: #474749;
   font-family: Libre Franklin, sans-serif;
   font-weight: 700;
 `;
+
 export const UserAvatar = styled.div`
-  width: 20%;
+  margin-left: 2%;
+  margin-top: 2%;
 `;
 
 export const HeadingDiv = styled.div`
@@ -68,7 +74,7 @@ export const HeadingDiv = styled.div`
       font-family: Inter, sans-serif;
       font-style: normal;
       margin-left: 5%;
-      margin-top: 1%;
+
       color: white;
       font-weight: 600;
     `}
@@ -140,18 +146,52 @@ export const FolderDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 50%;
-  margin-top: 18%;
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #dcdcdc;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #5352ed;
+    border-radius: 10px;
+  }
 `;
 export const AllFolders = styled.div`
   margin-top: 5%;
 `;
 
-export const Folder = styled.div`
+type FolderType = {
+  id: string;
+  active: string;
+};
+
+export const Folder = styled.div<FolderType>`
+  ${(props) =>
+    props.id === props.active &&
+    css`
+      background: #e4e3ff;
+      border-radius: 1em;
+    `}
+
   display: flex;
   align-items: center;
   padding: 5px;
   box-sizing: border-box;
+  margin: auto;
 
+  &:hover {
+    background: #e4e3ff;
+    border-radius: 1em;
+  }
+`;
+
+export const SelectFolder = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  box-sizing: border-box;
   margin: auto;
 
   &:hover {
@@ -212,11 +252,11 @@ export const FolderName = styled.p`
 export const DropdownIcon = styled(FaCaretRight)``;
 
 export const FavIcon = styled(FaHeart)`
-  color: #5352ed;
   margin-left: 3%;
   padding: 1%;
   font-size: 1.2em;
   margin-right: 5%;
+  color: #5352ed;
 `;
 
 export const LogoutIcon = styled(FaSignOutAlt)`
@@ -244,12 +284,12 @@ export const QuickLink = styled.div`
 
 export const QuickLinkDiv1 = styled.div`
   margin-top: 1.5%;
-  padding: 2%;
+  padding: 1%;
   width: 60%;
 `;
 
 export const QuickLinkDiv2 = styled.div`
-  width: 40%;
+  width: 30%;
 `;
 
 export const UrlDiv = styled.div`
@@ -269,29 +309,70 @@ export const UrlInput = styled.input`
   border-radius: 1em;
   background: #6c6bf9;
   color: white;
-
   box-sizing: border-box;
   font-size: ${(props) => (props.placeholder = "15px")};
   &:focus {
     outline: none;
+  }
+  ::placeholder {
+    color: white;
+    opacity: 0.9;
   }
 `;
 export const QuickLinkButtonsDiv = styled.div`
   display: flex;
   margin-left: 5%;
   width: 90%;
-  margin-top: 2%;
+  margin-top: 1.5%;
 `;
 
-export const BookmarkCard = styled.div`
+export const BookmarksDiv = styled.div`
   width: 100%;
   display: flex;
+
   justify-content: flex-start;
   flex-wrap: wrap;
   overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #dcdcdc;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #5352ed;
+    border-radius: 10px;
+  }
+`;
+
+export const VerticalBookmarksDiv = styled.div`
+  height: 43.8%;
+  width:80%:
+  display:flex;
+  flex-direction: column;
+  align-items:flex-start;
+  justify-content:flex-start;
+ 
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #dcdcdc;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #5352ed;
+    border-radius: 10px;
+  }
 `;
 
 export const BookmarkNameDiv = styled.div`
+  display: flex;
+  align-items: center;
+
   width: 50%;
   padding: 2%;
   width: 45%;
@@ -307,6 +388,7 @@ export const BookmarkNameDiv = styled.div`
 export const BookmarkNameInput = styled.input`
   width: 100%;
   padding: 2%;
+
   border: none;
   border-radius: 1em;
   background: #6c6bf9;
@@ -317,18 +399,37 @@ export const BookmarkNameInput = styled.input`
   &:focus {
     outline: none;
   }
+  ::placeholder {
+    color: white;
+    opacity: 0.9;
+  }
 `;
 
 export const StyledCard = styled(Card)`
+  width: 18%;
   margin-left: 5%;
   margin-top: 2%;
   display: flex;
   flex-direction: column;
+  box-shadow: "5px 10px red";
+`;
 
-  width: 30%;
+export const VerticalStyledCard = styled(Card)`
+  display: flex;
+  width: 90%;
+  height: 50%;
+  margin-left: 5%;
+  margin-top: 2%;
 
-  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
-    0px 8px 24px -4px rgba(24, 39, 75, 0.08);
+  align-items: center;
+
+  box-shadow: "5px 10px red";
+`;
+
+export const VerticalCardContent = styled.div`
+  width: 90%;
+  display: flex;
+  align-items: center;
 `;
 
 export const CardTitle = styled.div`
@@ -336,10 +437,28 @@ export const CardTitle = styled.div`
   justify-content: space-between;
 `;
 
-export const CardImage = styled.img`
-  width: 90%;
-  border-radius: 1.5em;
+export const CardImageDiv = styled.div`
+  width: 80%;
+  height: 150px;
   margin: auto;
+  margin-top: 6%;
+  border-radius: 1em;
+`;
+
+export const VerticalCardImage = styled.div`
+  display: flex;
+  margin-top: 0.5%;
+  width: 20%;
+  height: 140px;
+  border-radius: 1em;
+`;
+
+export const VerticalMenuItems = styled.div`
+  display: flex;
+  width: 1%;
+  justify-content: space-around;
+  margin-top: 2%;
+  flex-grow: 1;
 `;
 
 export const CardHeading = styled.div`
@@ -348,16 +467,100 @@ export const CardHeading = styled.div`
   font-family: Inter, sans-serif;
   font-weight: 600;
   font-style: normal;
+  object-fit: cover;
 `;
 
 export const CardDiscription = styled.div`
   margin-top: 4%;
 `;
 
-export const SearchBookmark = styled.div``;
+export const VerticalCardDiscription = styled.div`
+  margin-top: 2%;
+  width: 70%;
+
+  flex-grow: 1;
+`;
+
+export const SearchBookmark = styled.div`
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+`;
 
 export const SpinnerDiv = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20%;
+`;
+
+export const HeartIcon = styled(FaRegHeart)`
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 1.5em;
+  margin-right: 5%;
+`;
+
+export const FilledHeartIcon = styled(FaHeart)`
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 1.5em;
+  margin-right: 5%;
+  color: red;
+`;
+
+export const ModalLoader = styled.div`
+  margin-left: 10%;
+`;
+
+export const MainFolderDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  margin-top: 10%;
+`;
+
+export const FavoriteLoader = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+`;
+
+export const DisplayDiv = styled.div`
+  width: 8%;
+  height: 45px;
+  margin-right: 5%;
+  margin-top: 1%;
+  display: flex;
+
+  border-radius: 16px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+export const VerticalDiv = styled.div`
+  width: 50%;
+  height: 100%;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+`;
+export const HorizontalDiv = styled.div`
+  width: 50%;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blue;
+`;
+
+export const NoFolder = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4%;
 `;

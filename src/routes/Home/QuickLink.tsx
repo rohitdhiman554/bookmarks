@@ -23,8 +23,9 @@ import {
   FolderName,
   ModalHeading,
   ModalName,
+  SelectFolder,
 } from "./style";
-import { useGlobalState } from "../../hooks";
+import { useReducerState } from "../../hooks";
 
 type BookmarksType = {
   createBookmark: (obj: any) => void;
@@ -49,9 +50,8 @@ const Bookmark = (props: BookmarksType) => {
   const [bookmarkName, setBookmarkname] = useState("");
   const [open, setOpen] = useState(false);
   const [folderId, setFolderId] = useState("");
-  const [folderName, setFolderName] = useState("");
 
-  const { folders } = useGlobalState();
+  const { folders, folderName } = useReducerState();
 
   const addUrl = (e: any) => {
     setUrl(e.target.value);
@@ -66,7 +66,6 @@ const Bookmark = (props: BookmarksType) => {
 
     setUrl("");
     setBookmarkname("");
-    setFolderName("");
 
     props.createBookmark(obj);
   };
@@ -77,6 +76,13 @@ const Bookmark = (props: BookmarksType) => {
 
   const handleClose = () => setOpen(false);
 
+  const openFolderModal = () => {
+    setOpen(true);
+  };
+  const closeFolderModal = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <QuickLink>
@@ -85,7 +91,7 @@ const Bookmark = (props: BookmarksType) => {
           <p
             style={{
               color: "white",
-              margin: "3% 0 0 5%",
+              margin: "2% 0 0 5%",
               fontFamily: "Inter, sans-serif",
               fontSize: "0.89em",
             }}
@@ -103,7 +109,7 @@ const Bookmark = (props: BookmarksType) => {
           <p
             style={{
               color: "white",
-              margin: "4% 0 0 5%",
+              margin: "2% 0 0 5%",
               fontFamily: "Inter, sans-serif",
               fontSize: "0.89em",
             }}
@@ -131,32 +137,35 @@ const Bookmark = (props: BookmarksType) => {
                 <ModalHeading>
                   <ModalName>SELECT FOLDER</ModalName>
                 </ModalHeading>
-                {folders.map((folder: any) => {
-                  return (
-                    <AllFolders key={folder.id}>
-                      <Folder
-                        onClick={() => {
-                          setFolderName(folder.name);
-                          setFolderId(folder.id);
-                          setOpen(false);
-                        }}
-                      >
-                        <FolderIcon />
-                        <FolderName>{folder.name}</FolderName>
-                      </Folder>
-                    </AllFolders>
-                  );
-                })}
+
+                {folders.length != 0 ? (
+                  folders.map((folder: any) => {
+                    return (
+                      <AllFolders key={folder.id}>
+                        <SelectFolder
+                          onClick={() => {
+                            setFolderId(folder.id);
+                            setOpen(false);
+                          }}
+                        >
+                          <FolderIcon />
+                          <FolderName>{folder.name}</FolderName>
+                        </SelectFolder>
+                      </AllFolders>
+                    );
+                  })
+                ) : (
+                  <p>No Selected Folder</p>
+                )}
               </Box>
             </Modal>
 
             <FolderNameButton
+              placeholder="folder name"
               id="rootBtn"
-              onClick={() => {
-                setOpen(true);
-              }}
+              onClick={openFolderModal}
             >
-              {folderName}
+              {folderName === "" ? "no folder selected" : folderName}
             </FolderNameButton>
             <QuickLinkButton id="saveBtn" onClick={handleBookmark}>
               Save
@@ -165,7 +174,10 @@ const Bookmark = (props: BookmarksType) => {
         </QuickLinkDiv1>
 
         <QuickLinkDiv2>
-          <img src={QuickLinkImg} width={360} height={350} />
+          <img
+            src={QuickLinkImg}
+            style={{ width: "70%", marginTop: "5%", marginLeft: "15%" }}
+          />
         </QuickLinkDiv2>
       </QuickLink>
     </>

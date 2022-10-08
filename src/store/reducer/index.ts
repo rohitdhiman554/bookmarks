@@ -5,6 +5,5 @@ import { folderReducer } from "./Folders";
 
 export default combineReducers({
   userAuth,
-
   folderReducer,
 });

@@ -6,7 +6,14 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 import { CustomButton } from "../../components/Button";
 import { inputState } from "../../store/actions";
-import { MainDiv, HeadingDiv, RightDiv, Header, LeftDiv } from "./style";
+import {
+  MainDiv,
+  HeadingDiv,
+  RightDiv,
+  Header,
+  LeftDiv,
+  PasswordDiv,
+} from "./style";
 import {
   CheckBoxDiv,
   CustomAnchor,
@@ -28,6 +35,8 @@ import {
   PasswordValidation,
 } from "../../components/Validation";
 import { signUpSchema } from "../../validation/index";
+import { useReducerState } from "../../hooks";
+import { ClipLoader } from "react-spinners";
 
 type SignupState = {
   getRegistrationDetails: (obj: inputState) => void;
@@ -42,13 +51,13 @@ const initialValues = {
 const Signup = (props: SignupState) => {
   const [visibility, setVisibility] = useState(false);
   const [checked, setChecked] = useState(true);
+  const { signUpSpinner } = useReducerState();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: signUpSchema,
       onSubmit: (values, actions) => {
-        console.log(values);
         props.getRegistrationDetails(values);
         actions.resetForm();
       },
@@ -61,7 +70,6 @@ const Signup = (props: SignupState) => {
   const handleCheck = () => {
     setChecked(!checked);
   };
-
   return (
     <>
       <MainDiv>
@@ -139,8 +147,9 @@ const Signup = (props: SignupState) => {
               </Text>
             </CheckBoxDiv>
 
-            <CustomButton id="signupBtn" type="submit" onClick={() => {}}>
-              Sign Up
+            <CustomButton id="signupBtn" type="submit">
+              Sign Up{"\u00a0\u00a0"}{" "}
+              {signUpSpinner ? <ClipLoader size={20} color="white" /> : ""}
             </CustomButton>
             <Text id="orwith">Or with</Text>
             <CustomButton type="submit" id="googleBtn">

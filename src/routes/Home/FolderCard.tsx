@@ -12,6 +12,7 @@ import {
   getBookmarkRequest,
   renameFolderRequest,
 } from "../../store/actions";
+import { ClipLoader, FadeLoader } from "react-spinners";
 import {
   AllFolders,
   Folder,
@@ -22,26 +23,29 @@ import {
   ModalHeading,
   ModalInput,
   ModalName,
+  ModalLoader,
 } from "./style";
 import { ModalButton } from "../../components/Button";
 import { modalStyle } from ".";
-import { useGlobalState } from "../../hooks";
+import { useReducerState } from "../../hooks";
 
 interface FolderCardType {
   key: string;
   id: string;
   name: string;
   renameFolder: (obj: any) => void;
-  getBookmark: (id: string) => void;
+  getBookmark: (id: string, name: string) => void;
   deleteFolder: (obj: any) => void;
 }
 
 const FolderCard = (props: FolderCardType) => {
   const [rename, setRename] = useState("");
   const [modal, setModal] = useState(false);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { folderSpinner } = useGlobalState();
+  const { Loading, deleteSpinner, folderId } = useReducerState();
+  const [active, setActive] = useState(false);
 
   const handleDelete = () => {
     let obj = { folderId: props.id };
@@ -73,7 +77,6 @@ const FolderCard = (props: FolderCardType) => {
   const handleRename = () => {
     let obj = { folderId: props.id, name: rename };
     setRename("");
-
     props.renameFolder(obj);
     setModal(false);
   };
@@ -81,16 +84,16 @@ const FolderCard = (props: FolderCardType) => {
   return (
     <>
       <AllFolders>
-        <Folder>
+        <Folder
+          onClick={() => {
+            props.getBookmark(props.id, props.name);
+          }}
+          id={props.id}
+          active={folderId}
+        >
           <DropdownIcon />
           <FolderIcon />
-          <FolderName
-            onClick={() => {
-              props.getBookmark(props.id);
-            }}
-          >
-            {props.name}
-          </FolderName>
+          <FolderName>{props.name}</FolderName>
           <FaEllipsisV
             style={{ marginTop: "1.2%", color: " #9D9B9F", cursor: "pointer" }}
             id="basic-button"
@@ -111,13 +114,22 @@ const FolderCard = (props: FolderCardType) => {
             }}
           >
             <MenuItem onClick={openModal}>Rename</MenuItem>
-            <MenuItem onClick={handleClose}>Sub Folder</MenuItem>
-            <MenuItem onClick={handleDelete}>Delete</MenuItem>
+
+            <MenuItem onClick={handleDelete}>
+              Delete{" "}
+              {deleteSpinner ? (
+                <ModalLoader>
+                  <ClipLoader size={10}></ClipLoader>
+                </ModalLoader>
+              ) : (
+                ""
+              )}{" "}
+            </MenuItem>
           </Menu>
         </Folder>
       </AllFolders>
 
-      <Modal open={modal}>
+      <Modal open={Loading === true ? true : modal}>
         <Box sx={modalStyle}>
           <ModalHeading>
             <ModalName>RENAME FOLDER</ModalName>
@@ -143,6 +155,13 @@ const FolderCard = (props: FolderCardType) => {
             ></ModalInput>
             <ModalButton id="saveModal" onClick={handleRename}>
               Save
+              {Loading ? (
+                <ModalLoader>
+                  <ClipLoader size={10}></ClipLoader>
+                </ModalLoader>
+              ) : (
+                ""
+              )}
             </ModalButton>
           </ModalContent>
         </Box>
@@ -155,7 +174,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     renameFolder: (obj: any) => dispatch(renameFolderRequest(obj)),
     deleteFolder: (obj: any) => dispatch(deleteFolderRequest(obj)),
-    getBookmark: (id: string) => dispatch(getBookmarkRequest(id)),
+    getBookmark: (id: string, name: string) =>
+      dispatch(getBookmarkRequest(id, name)),
   };
 };
 

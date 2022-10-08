@@ -8,28 +8,65 @@ export const InputItems = styled.form`
   display: flex;
   flex-direction: column;
   width: 38%;
+
   margin-left: 50%;
 
   ${(props) =>
     props.id === "signupItems" &&
     css`
       margin-top: 12%;
+
+      @media (max-width: 1070px) {
+        margin-top: 15%;
+        width: 46%;
+      }
+
+      @media (max-width: 1050px) {
+        // margin-top: 22%;
+        width: 46%;
+      }
+      @media (max-width: 900px) {
+        width: 46%;
+        // margin-top: 25%;
+      }
+      @media (max-width: 750px) {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        height: 90vh;
+      }
+      @media (max-width: 750px) {
+        // margin-top: 1.5%;
+      }
     `}
   ${(props) =>
     props.id === "loginItems" &&
     css`
       margin-top: 20%;
-    `}
-  
 
-  @media (max-width: 700px) {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-  }
+      @media (max-width: 1050px) {
+        margin-top: 24%;
+        width: 42%;
+      }
+      @media (max-width: 900px) {
+        width: 46%;
+        margin-top: 26%;
+      }
+      @media (max-width: 800px) {
+        width: 46%;
+        margin-top: 32%;
+      }
+      @media (max-width: 750px) {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        height: 90vh;
+        margin-top: 2%;
+      }
+      @media (max-width: 750px) {
+        margin-top: 1.5%;
+      }
+    `}
 `;
 
 export const CustomInput = styled.input`
@@ -42,17 +79,53 @@ export const CustomInput = styled.input`
     props.id === "name" &&
     css`
       margin-top: 8%;
+      @media (max-width: 750px) {
+        margin-top: 1.5%;
+        padding: 2.5%;
+      }
+      @media (max-width: 670px) {
+        margin-top: 3.5%;
+      }
+
+      @media (max-width: 640px) {
+        margin-top: 8%;
+      }
+      @media (max-width: 610px) {
+        margin-top: 13%;
+      }
+      @media (max-width: 550px) {
+        margin-top: 16%;
+      }
+      @media (max-width: 470px) {
+        margin-top: 19%;
+      }
+
+      @media (max-width: 450px) {
+        margin-top: 22%;
+      }
+
+      @media (max-width: 420px) {
+        margin-top: 28%;
+      }
     `}
 
   ${(props) =>
     props.id === "email" &&
     css`
-      margin-top: 8%;
+      margin-top: 5%;
+
+      @media (max-width: 750px) {
+        padding: 2.5%;
+      }
     `}
     ${(props) =>
     props.id === "password" &&
     css`
-      margin-top: 8%;
+      margin-top: 5%;
+      @media (max-width: 750px) {
+        margin-top: 4%;
+        padding: 2.5%;
+      }
     `}
 
   ${(props) =>
@@ -99,26 +172,11 @@ export const Text = styled.p`
       font-size: 1.01em;
       color: #000000;
 
-      @media (max-width: 1045px) {
-        top: 96%;
+      @media (max-width: 900px) {
+        margin-top: 4%;
       }
-      @media (max-width: 840px) {
-        width: max-content;
-      }
-      @media (max-width: 800px) {
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      @media (max-width: 753px) {
-        top: 101%;
-      }
-      @media (max-width: 700px) {
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+      @media (max-width: 750px) {
+        margin-top: 1.5%;
       }
     `}
 
@@ -132,11 +190,11 @@ export const Text = styled.p`
       font-style: normal;
       font-weight: 300;
       font-size: 17px;
-      @media (max-width: 1045px) {
-        top: 82%;
+      @media (max-width: 900px) {
+        margin-top: 5%;
       }
-      @media (max-width: 753px) {
-        top: 85%;
+      @media (max-width: 750px) {
+        margin-top: 1.5%;
       }
     `}
 
@@ -150,19 +208,7 @@ export const Text = styled.p`
       font-weight: 300;
       font-size: 1.05em;
 
-      @media (max-width: 957px) {
-        width: 100%;
-        flex-direction: column;
-      }
-      @media (max-width: 744px) {
-        width: max-content;
-      }
-      @media (max-width: 700px) {
-        flex-direction: row;
-        width: 100%;
-      }
-      @media (max-width: 282px) {
-        flex-direction: column;
+      @media (max-width: 750px) {
         width: 100%;
       }
     `}

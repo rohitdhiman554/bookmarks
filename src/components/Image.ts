@@ -4,12 +4,21 @@ export const StyledImage = styled.img`
   ${(props) =>
     props.id === "headingImage" &&
     css`
-      width: 110%;
-
-      margin-top: 3%;
-      margin-left: 20%;
-
+      position: absolute;
+      width: 40%;
+      top: 10%;
+      left: 1%;
       z-index: 1;
+
+      @media (max-width: 1245px) {
+        top: 20%;
+        left: 1%;
+      }
+
+      @media (max-width: 1140px) {
+        top: 25%;
+        left: 1%;
+      }
     `}
   ${(props) =>
     props.id === "bookmarkIcon" &&

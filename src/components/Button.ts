@@ -16,13 +16,11 @@ export const CustomButton = styled.button`
       margin-top: 4%;
       padding: 3%;
       color: white;
-      @media (max-width: 1045px) {
-        top: 75%;
+      @media (max-width: 900px) {
+        margin-top: 5%;
       }
-      @media (max-width: 753px) {
-        top: 78%;
-      }
-      @media (max-width: 600px) {
+      @media (max-width: 750px) {
+        padding: 2%;
       }
     `}
 
@@ -34,6 +32,9 @@ export const CustomButton = styled.button`
       color: white;
       margin-top: 8%;
       padding: 4.25%;
+      @media (max-width: 750px) {
+        padding: 2.5%;
+      }
     `}
   ${(props) =>
     props.id === "googleBtn" &&
@@ -41,11 +42,11 @@ export const CustomButton = styled.button`
       margin-top: 3%;
       border: 2px solid #f1f1fa;
       background: white;
-      @media (max-width: 1045px) {
-        top: 90%;
+      @media (max-width: 900px) {
+        margin-top: 3%;
       }
-      @media (max-width: 753px) {
-        top: 94%;
+      @media (max-width: 750px) {
+        margin-top: 1.5%;
       }
     `}
 
@@ -67,10 +68,9 @@ export const AddLink = styled.button`
 `;
 
 export const FavouriteButton = styled.button`
-  width: 80%;
+  width: 90%;
+  cursor: pointer;
   margin: auto;
-  margin-top: 15%;
-  margin-bottom: 3%;
   display: flex;
   font-size: 1.2em;
   align-items: center;
@@ -80,13 +80,14 @@ export const FavouriteButton = styled.button`
   font-family: Inter, sans-serif;
   font-weight: 600;
   color: #77757f;
-  cursor: pointer;
-  background: #e4e3ff;
-  border-radius: 1em;
+
+  &:hover {
+    background: #e4e3ff;
+  }
 `;
 
 export const LogoutButton = styled.button`
-  width: 80%;
+  width: 90%;
   cursor: pointer;
   margin: auto;
   display: flex;
@@ -135,6 +136,9 @@ export const QuickLinkButton = styled.button`
 `;
 
 export const ModalButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   ${(props) =>
     props.id === "close" &&

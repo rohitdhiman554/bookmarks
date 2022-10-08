@@ -24,6 +24,9 @@ import { StyledImage } from "../../components/Image";
 import HeaderImage from "../../components/assets/Saly-10.svg";
 import { loginSchema } from "../../validation";
 import { EmailValidation } from "../../components/Validation";
+import { useReducerState } from "../../hooks";
+import { ClipLoader } from "react-spinners";
+import styled from "styled-components";
 
 type LoginStateType = {
   getLoginDetails: (obj: LoginState) => void;
@@ -36,7 +39,7 @@ const initialValues = {
 
 const Login = (props: LoginStateType) => {
   const [visibility, setVisibility] = useState(false);
-
+  const { loginSpinner } = useReducerState();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
@@ -50,7 +53,6 @@ const Login = (props: LoginStateType) => {
   const handleVisibilty = () => {
     setVisibility(!visibility);
   };
-
   return (
     <Fragment>
       <MainDiv>
@@ -74,12 +76,12 @@ const Login = (props: LoginStateType) => {
               type="text"
               name="email"
               id="email"
+              value={values.email}
               onChange={handleChange}
               placeholder="Email"
-              value={values.email}
             ></CustomInput>
             {errors.email && touched.email ? (
-              <EmailValidation id="email"></EmailValidation>
+              <EmailValidation id="email">{errors.email}</EmailValidation>
             ) : null}
 
             <CustomInput
@@ -97,7 +99,8 @@ const Login = (props: LoginStateType) => {
             <HideEye  onClick={handleVisibilty}></HideEye>
           )} */}
             <CustomButton id="loginBtn" type="submit">
-              Login
+              Login{"\u00a0\u00a0"}
+              {loginSpinner ? <ClipLoader size={20} color="white" /> : ""}
             </CustomButton>
 
             <CustomAnchor href="/" id="forgot">

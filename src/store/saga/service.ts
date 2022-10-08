@@ -21,6 +21,7 @@ export const sendRequest = async (method: string, path: string, data: any) => {
   };
   const putMethod = {
     method: method,
+
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -31,6 +32,7 @@ export const sendRequest = async (method: string, path: string, data: any) => {
 
   const deleteMethod = {
     method: method,
+
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

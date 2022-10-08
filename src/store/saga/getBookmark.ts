@@ -6,11 +6,11 @@ import { GET_BOOKMARK_FAILURE, GET_BOOKMARK_SUCCESS } from "../actionsTypes";
 function* getBookmarks(action: any): any {
   try {
     let obj = {
-      folderId: action.payload,
+      folderId: action.payload.id,
     };
-    const url = `folder-bookmarks?folderId=${action.payload}`;
+    const url = `folder-bookmarks?folderId=${action.payload.id}`;
     let response = yield sendRequest("GET", url, obj);
-    yield console.log(response);
+
     yield put({
       type: GET_BOOKMARK_SUCCESS,
       payload: response,

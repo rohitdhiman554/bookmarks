@@ -69,6 +69,11 @@ export type AllFoldersFailure = {
   };
 };
 
+export type RenameFolderRequest = {
+  type: "RENAME_FOLDER_REQUEST";
+  response: any;
+};
+
 export type RenameFolderSuccess = {
   type: "RENAME_FOLDER_SUCCESS";
   response: any;
@@ -106,15 +111,22 @@ export type CreateBookmarkRequest = {
 };
 
 export type CreateBookmarkSuccess = {
-  type: "CREATE_BOOKMARK_SUCCESS";
+  type: "CREATE_BOOKMARKS_SUCCESS";
   payload: {
-    url: string;
-    name: string;
+    response: any;
   };
+};
+
+export type CreateBookmarkFailure = {
+  type: "CREATE_BOOKMARKS_FAILURE";
 };
 
 export type GetBookMarkRequest = {
   type: "GET_BOOKMARK_REQUEST";
+  payload: {
+    id: string;
+    name: string;
+  };
 };
 
 export type GetBookmarkSuccess = {
@@ -127,6 +139,103 @@ export type GetBookmarkSuccess = {
   };
 };
 
+export type GetBookmarkFailure = {
+  type: "GET_BOOKMARK_FAILURE";
+  payload: any;
+};
+
+export type DeleteBookmarkSuccess = {
+  type: "DELETE_BOOKMARKS_SUCCESS";
+  payload: {
+    id: string;
+  };
+};
+
+export type SearchFolder = {
+  type: "SEARCH_FOLDER";
+  payload: {
+    name: string;
+  };
+};
+
+export type FavoriteSuccess = {
+  type: "FAVORITE_SUCCESS";
+  payload: {
+    response: {
+      id: string;
+      isFavorite: string;
+    };
+  };
+};
+
+export type AddToFavorite = {
+  type: "ADD_TO_FAVORITE";
+  payload: {
+    bookmark: [];
+  };
+};
+
+export type RemoveFromFavorite = {
+  type: "REMOVE_FROM_FAVORITE";
+  payload: {
+    id: string;
+  };
+};
+
+export type ShowFavorite = {
+  type: "SHOW_FAVORITE";
+};
+
+export type MoveBookmarkRequest = {
+  type: "MOVE_BOOKMARK_REQUEST";
+};
+
+export type MoveBookmarkSuccess = {
+  type: "MOVE_BOOKMARK_SUCCESS";
+  payload: {
+    id: string;
+  };
+};
+
+export type MoveBookmarkFailure = {
+  type: "MOVE_BOOKMARK_FAILURE";
+  payload: {
+    error: any;
+  };
+};
+
+export type DeleteFolderRequest = {
+  type: "DELETE_FOLDER_REQUEST";
+  payload: {
+    folderId: string;
+  };
+};
+
+export type DeleteBookmarkRequest = {
+  type: "DELETE_BOOKMARKS_REQUEST";
+};
+
+export type DeleteBookmarkFailure = {
+  type: "DELETE_BOOKMARKS_FAILURE";
+  payload: {
+    error: any;
+  };
+};
+
+export type FavoriteRequest = {
+  type: "FAVORITE_REQUEST";
+  payload: {
+    id: string;
+  };
+};
+
+export type FavoriteFailure = {
+  type: "FAVORITE_FAILURE";
+};
+
+export type Toggleview = {
+  type: "TOGGLE_VIEW";
+};
 export type folderReducerActions =
   | CreateFolderRequest
   | CreateFolderSuccess
@@ -138,7 +247,26 @@ export type folderReducerActions =
   | RenameFolderSuccess
   | DeleteFolderSuccess
   | DeleteFolderFailure
+  | DeleteFolderRequest
   | CreateBookmarkRequest
   | CreateBookmarkSuccess
   | GetBookMarkRequest
-  | GetBookmarkSuccess;
+  | GetBookmarkSuccess
+  | DeleteBookmarkSuccess
+  | SearchFolder
+  | FavoriteSuccess
+  | AddToFavorite
+  | RemoveFromFavorite
+  | ShowFavorite
+  | MoveBookmarkRequest
+  | MoveBookmarkSuccess
+  | RenameFolderRequest
+  | GetBookmarkFailure
+  | MoveBookmarkRequest
+  | MoveBookmarkFailure
+  | DeleteBookmarkRequest
+  | DeleteBookmarkFailure
+  | FavoriteRequest
+  | Toggleview
+  | FavoriteFailure
+  | CreateBookmarkFailure;

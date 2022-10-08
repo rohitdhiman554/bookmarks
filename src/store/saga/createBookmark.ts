@@ -3,7 +3,9 @@ import { sendRequest } from "./service";
 
 import {
   CREATE_BOOKMARKS_FAILURE,
-  CREATE_BOOKMARK_SUCCESS,
+  CREATE_BOOKMARKS_SUCCESS,
+  MOVE_BOOKMARK_REQUEST,
+  MOVE_BOOKMARK_SUCCESS,
 } from "../actionsTypes";
 
 export function* createBookmark(action: any): any {
@@ -15,16 +17,16 @@ export function* createBookmark(action: any): any {
       name: data.name,
     });
 
-    yield sendRequest("PATCH", "move-bookmark", {
+    let response2 = yield sendRequest("PATCH", "move-bookmark", {
       folderId: data.folderId,
       bookmarkId: response.id,
     });
 
     yield put({
-      type: CREATE_BOOKMARK_SUCCESS,
+      type: CREATE_BOOKMARKS_SUCCESS,
       payload: {
-        url: response.url,
-        name: response.name,
+        folderId: response2.folder.id,
+        response: response,
       },
     });
   } catch (error) {

@@ -7,12 +7,19 @@ import {
 } from "../actionsTypes";
 
 export function* deleteBookmark(action: any): any {
-  let data = action.payload;
+  let data = action.payload.id;
+
   try {
     let response = yield sendRequest("DELETE", "bookmark", {
-      bookmarkId: data.id,
+      bookmarkId: data,
     });
-    yield put({ type: DELETE_BOOKMARKS_SUCCESS, payload: response });
+
+    yield put({
+      type: DELETE_BOOKMARKS_SUCCESS,
+      payload: {
+        id: action.payload.id,
+      },
+    });
   } catch (error) {
     yield put({ type: DELETE_BOOKMARKS_FAILURE, payload: error });
   }

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const useGlobalState = () => {
+export const useReducerState = () => {
   const {
     user,
     folders,
@@ -9,15 +9,39 @@ export const useGlobalState = () => {
     bookmarks,
     userProfile,
     bookmarkSpinner,
+    activeFolder,
+    Loading,
+    getFoldersSpinner,
+    deleteSpinner,
+    folderId,
+    favoriteSpinner,
+    processing,
+    vertical,
+    favId,
+    folderName,
+    loginSpinner,
+    signUpSpinner,
   } = useSelector((state: any) => {
     return {
       user: state.userAuth.user,
+      loginSpinner: state.userAuth.loginSpinner,
+      signUpSpinner: state.userAuth.signUpSpinner,
       folders: state.folderReducer.folders,
       folderSpinner: state.folderReducer.folderSpinner,
       bookmarks: state.folderReducer.bookmarks,
       bookmarkSpinner: state.folderReducer.bookmarkSpinner,
       userProfile: state.userAuth.userProfile,
       error: state.folderReducer.error,
+      activeFolder: state.folderReducer.activeFolder,
+      Loading: state.folderReducer.Loading,
+      getFoldersSpinner: state.folderReducer.getFoldersSpinner,
+      deleteSpinner: state.folderReducer.deleteSpinner,
+      folderId: state.folderReducer.folderId,
+      favoriteSpinner: state.folderReducer.favoriteSpinner,
+      processing: state.folderReducer.processing,
+      vertical: state.folderReducer.vertical,
+      favId: state.folderReducer.favId,
+      folderName: state.folderReducer.folderName,
     };
   });
   return {
@@ -28,5 +52,17 @@ export const useGlobalState = () => {
     bookmarks,
     userProfile,
     bookmarkSpinner,
+    activeFolder,
+    Loading,
+    getFoldersSpinner,
+    deleteSpinner,
+    folderId,
+    favoriteSpinner,
+    processing,
+    vertical,
+    favId,
+    folderName,
+    loginSpinner,
+    signUpSpinner,
   };
 };
